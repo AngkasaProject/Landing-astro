@@ -1,0 +1,110 @@
+---
+// src/pages/beli.astro
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+const title = "Cara Belanja - Panduan Mudah Beli Jersey Custom | AetherSub";
+---
+
+<BaseLayout title={title}>
+    <div class="pt-24 md:pt-32 bg-gray-50 min-h-screen">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 py-12 md:py-16">
+            
+            <header class="text-center mb-12 md:mb-16">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                    🛒 Cara Belanja di AetherSub
+                </h1>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Ikuti 4 langkah mudah ini untuk mendapatkan custom jersey premium impian Anda!
+                </p>
+            </header>
+
+            <div class="relative">
+                <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-red-200 transform -translate-x-1/2"></div>
+                
+                <section class="space-y-12 md:space-y-24">
+
+                    <div class="flex flex-col md:flex-row justify-between items-center w-full relative">
+                        <div class="absolute hidden md:block left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-red-600 border-4 border-white z-10 shadow-lg"></div>
+                        
+                        <div class="md:w-5/12 text-left bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-red-600">
+                            <h2 class="text-3xl font-bold text-red-600 mb-3 flex items-center">
+                                <span class="text-4xl mr-3 font-mono">1.</span> Pilih Jersey
+                            </h2>
+                            <p class="text-gray-700">
+                                Jelajahi koleksi kami (Home, Away, Training, Retro). Klik tombol **"Beli Sekarang"** pada produk yang Anda inginkan.
+                            </p>
+                            <p class="text-sm text-gray-500 mt-2 italic">
+                                Semua opsi kustomisasi akan muncul di modal detail produk.
+                            </p>
+                            <a href="/" class="mt-4 inline-block text-red-600 font-semibold hover:underline">
+                                Lihat Koleksi Sekarang <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                        <div class="md:w-5/12 hidden md:block"></div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row justify-between items-center w-full relative">
+                        <div class="absolute hidden md:block left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-red-600 border-4 border-white z-10 shadow-lg"></div>
+
+                        <div class="md:w-5/12 hidden md:block"></div>
+                        <div class="md:w-5/12 text-left bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-lime-600">
+                            <h2 class="text-3xl font-bold text-lime-600 mb-3 flex items-center">
+                                <span class="text-4xl mr-3 font-mono">2.</span> Kustomisasi & Keranjang
+                            </h2>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Isi **Nama** dan **Nomor** punggung (opsional, gratis).</li>
+                                <li>Pilih **Ukuran** yang sesuai (lihat panduan ukuran).</li>
+                                <li>Tentukan **Kuantitas**, lalu klik **"Tambah ke Keranjang"**.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row justify-between items-center w-full relative">
+                        <div class="absolute hidden md:block left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-red-600 border-4 border-white z-10 shadow-lg"></div>
+                        
+                        <div class="md:w-5/12 text-left bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-red-600">
+                            <h2 class="text-3xl font-bold text-red-600 mb-3 flex items-center">
+                                <span class="text-4xl mr-3 font-mono">3.</span> Selesaikan Pembayaran
+                            </h2>
+                            <p class="text-gray-700 mb-3">
+                                Lakukan *checkout* dan masukkan alamat pengiriman Anda. Kami menerima pembayaran via:
+                            </p>
+                            <div class="flex space-x-4">
+                                <span class="bg-gray-200 text-sm font-medium px-3 py-1 rounded-full">Transfer Bank</span>
+                                <span class="bg-gray-200 text-sm font-medium px-3 py-1 rounded-full">E-Wallet (Dana/Gopay)</span>
+                            </div>
+                        </div>
+                        <div class="md:w-5/12 hidden md:block"></div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row justify-between items-center w-full relative">
+                        <div class="absolute hidden md:block left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-red-600 border-4 border-white z-10 shadow-lg"></div>
+
+                        <div class="md:w-5/12 hidden md:block"></div>
+                        <div class="md:w-5/12 text-left bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-lime-600">
+                            <h2 class="text-3xl font-bold text-lime-600 mb-3 flex items-center">
+                                <span class="text-4xl mr-3 font-mono">4.</span> Produksi & Pengiriman
+                            </h2>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Pesanan akan masuk tahap produksi (biasanya 2-3 hari kerja).</li>
+                                <li>Setelah selesai, kami akan mengirimkan resi dan jersey Anda siap dikirimkan.</li>
+                                <li>Anda tinggal menunggu jersey premium tiba di depan pintu!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+
+            <div class="text-center mt-16 md:mt-24">
+                <a
+                    href="/"
+                    class="bg-lime-600 hover:bg-lime-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 text-lg"
+                >
+                    Mulai Belanja Sekarang <i class="fa-solid fa-cart-shopping ml-2"></i>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+</BaseLayout>

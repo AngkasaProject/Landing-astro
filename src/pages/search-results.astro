@@ -1,0 +1,57 @@
+---
+// src/pages/search-results.astro
+
+// 1. Dapatkan objek URL dari Astro
+const url = Astro.url;
+// 2. Dapatkan objek parameter pencarian (URLSearchParams)
+const params = url.searchParams;
+
+// 3. Ambil nilai dari parameter 'q'
+// Jika 'q' tidak ada atau nilainya null/undefined, rawQuery akan menjadi null.
+const rawQuery = params.get('q'); 
+
+// 4. Proses dan pastikan hasilnya string, atau null jika benar-benar kosong
+const query = rawQuery?.trim() || null; 
+
+// --- DEBUGGING EKSTRA ---
+// Dapatkan seluruh string parameter untuk debugging visual
+const fullQueryString = url.search; // Contoh: ?q=queryku&page=1
+
+// Asumsi Anda memiliki layout utama, ganti './MyLayout.astro' sesuai nama layout Anda
+import Layout from '../layouts/BaseLayout.astro'; 
+
+const title = query ? `Hasil Pencarian untuk "${query}"` : "Halaman Pencarian";
+---
+
+<Layout title={title}>
+    <main class="bg-gray-500 min-h-screen pt-20">
+        <div class="max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg mt-10">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-6 border-b pb-3">
+                🔍 Hasil Pencarian
+            </h1>
+            
+            <p class="text-lg text-gray-700">
+                Anda mencari: 
+                <span class="font-semibold text-red-600">
+                    "{query ? query : 'Tidak ada kata kunci.'}"
+                </span>
+            </p>
+
+            <div class="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-500 text-yellow-800">
+                <p class="font-medium mb-2">Status Debugging URL:</p>
+                
+                <p class="text-sm">
+                    URL Parameter Penuh: <code class="bg-yellow-100 p-1 rounded">{fullQueryString || 'Tidak Ada'}</code>
+                </p>
+                
+                <p class="text-sm mt-1">
+                    Nilai 'q' yang Ditemukan: <code class="bg-yellow-100 p-1 rounded">{query || 'NULL/Kosong'}</code>
+                </p>
+            </div>
+            
+            <a href="/" class="mt-8 inline-block text-red-600 hover:text-red-700 font-medium">
+                &larr; Kembali ke Beranda
+            </a>
+        </div>
+    </main>
+</Layout>

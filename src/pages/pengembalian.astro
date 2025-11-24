@@ -1,0 +1,165 @@
+---
+// src/pages/retur.astro
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+const title = "Kebijakan dan Form Pengembalian Produk | AetherSub";
+
+// Email tujuan pengiriman form (gunakan mailto: untuk mengirim data form)
+const helpdeskEmail = "helpdesk@aethersub.store";
+---
+
+<BaseLayout title={title}>
+    <div class="pt-24 md:pt-32 bg-gray-50 min-h-screen">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 py-12 md:py-16">
+            
+            <header class="text-center mb-10 md:mb-12 border-b pb-4 border-lime-100">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">
+                    🔄 Pengembalian Produk
+                </h1>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Pahami syarat pengembalian kami dan gunakan formulir di bawah ini untuk memulai proses retur.
+                </p>
+            </header>
+
+            <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+                
+                <div class="lg:col-span-2 space-y-8 p-6 bg-white rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-red-600 mb-4">
+                        Syarat dan Prosedur Pengembalian
+                    </h2>
+
+                    <section>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            1. Batas Waktu Pengajuan
+                        </h3>
+                        <p class="text-gray-700">
+                            Pengajuan pengembalian harus dilakukan maksimal **3 hari** setelah barang diterima (berdasarkan status kurir).
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            2. Kondisi Produk
+                        </h3>
+                        <ul class="list-disc list-inside ml-4 text-gray-700 space-y-1">
+                            <li>Produk harus dalam kondisi **baru**, belum pernah dicuci, dan belum digunakan.</li>
+                            <li>Tag harga (jika ada) dan kemasan asli harus disertakan.</li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2 text-red-700">
+                            3. Produk yang Dapat Dikembalikan (Retur DITERIMA)
+                        </h3>
+                        <ul class="list-disc list-inside ml-4 text-gray-700 space-y-1">
+                            <li>**Cacat Produksi:** Terdapat robek atau cacat sablon yang signifikan (tidak termasuk perbedaan warna minor).</li>
+                            <li>**Kesalahan Pengiriman:** Kami mengirimkan produk yang salah (model, ukuran, atau detail kustomisasi yang tidak sesuai dengan *invoice*).</li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2 text-lime-700">
+                            4. Produk yang Tidak Dapat Dikembalikan (Retur DITOLAK)
+                        </h3>
+                        <ul class="list-disc list-inside ml-4 text-gray-700 space-y-1">
+                            <li>**Kesalahan Ukuran:** Pelanggan salah memilih ukuran. Mohon merujuk pada Panduan Ukuran sebelum memesan.</li>
+                            <li>**Kesalahan Kustomisasi:** Pelanggan salah input nama atau nomor saat pemesanan.</li>
+                            <li>Kerusakan yang terjadi selama pengiriman dan tanpa menyertakan bukti **video unboxing** penuh.</li>
+                        </ul>
+                    </section>
+
+                    <section class="border-t pt-4 border-gray-100">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            Prosedur Pengajuan
+                        </h3>
+                        <p class="text-gray-700">
+                            Isi dan kirimkan formulir di kolom samping. Tim kami akan merespons dalam waktu 1x24 jam kerja untuk memandu langkah selanjutnya.
+                        </p>
+                    </section>
+
+                </div>
+                
+                <div class="lg:col-span-1 p-6 bg-lime-600 rounded-xl shadow-2xl h-fit sticky top-28">
+                    <h2 class="text-2xl font-bold text-white mb-4">
+                        Formulir Pengajuan Retur
+                    </h2>
+                    <p class="text-lime-100 mb-4 text-sm">
+                        Data ini akan diarahkan ke email {helpdeskEmail} saat Anda menekan tombol kirim.
+                    </p>
+
+                    <form 
+                        method="POST" 
+                        action={`mailto:${helpdeskEmail}`}
+                        enctype="text/plain" 
+                        class="space-y-4"
+                    >
+                        <input 
+                            type="hidden" 
+                            name="subject" 
+                            value="Pengajuan Retur Produk - Dari Website"
+                        />
+
+                        <div>
+                            <label for="nama" class="block text-sm font-medium text-white">Nama Lengkap</label>
+                            <input 
+                                type="text" 
+                                id="nama" 
+                                name="Nama Pelanggan" 
+                                required 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 text-gray-900"
+                            />
+                        </div>
+
+                        <div>
+                            <label for="invoice" class="block text-sm font-medium text-white">Nomor Pesanan (INV-xxxx)</label>
+                            <input 
+                                type="text" 
+                                id="invoice" 
+                                name="Nomor Pesanan" 
+                                required 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 text-gray-900"
+                            />
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-white">Email Kontak</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="Email Kontak" 
+                                required 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 text-gray-900"
+                            />
+                        </div>
+
+                        <div>
+                            <label for="alasan" class="block text-sm font-medium text-white">Alasan Pengembalian</label>
+                            <textarea 
+                                id="alasan" 
+                                name="Deskripsi Alasan Retur" 
+                                rows="3" 
+                                required 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 text-gray-900"
+                                placeholder="Cacat Produk/Salah Ukuran dari Penjual/Dll. Sertakan bukti video unboxing."
+                            ></textarea>
+                        </div>
+                        
+                        <button
+                            type="submit"
+                            class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-lime-600 bg-white hover:bg-red-50 transition duration-150 mt-2"
+                        >
+                            Kirim Pengajuan Retur via Email <i class="fa-solid fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 md:mt-16">
+                <a href="/faq" class="text-lime-600 font-semibold hover:text-red-600 transition duration-150">
+                    Lihat FAQ (Apakah masalah Anda sudah terjawab?) <i class="fa-solid fa-circle-question ml-1"></i>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+</BaseLayout>

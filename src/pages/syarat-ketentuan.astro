@@ -1,0 +1,122 @@
+---
+// src/pages/syarat.astro
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+const title = "Syarat dan Ketentuan | AetherSub";
+---
+
+<BaseLayout title={title}>
+    <div class="pt-24 md:pt-32 bg-white min-h-screen">
+        <div class="container mx-auto px-4 md:px-8 lg:px-16 py-12 md:py-16">
+            
+            <header class="text-center mb-10 md:mb-12 border-b pb-4 border-red-100">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">
+                    📜 Syarat dan Ketentuan
+                </h1>
+                <p class="text-sm text-gray-500">
+                    Berlaku efektif sejak 1 Januari 2025
+                </p>
+            </header>
+
+            <div class="max-w-4xl mx-auto text-gray-700 space-y-8">
+                
+                <section>
+                    <h2 class="text-2xl md:text-3xl font-bold text-red-600 mb-4">
+                        1. Ketentuan Umum
+                    </h2>
+                    <p class="mb-3">
+                        Selamat datang di AetherSub. Dengan mengakses dan menggunakan situs web dan layanan kami, Anda setuju untuk terikat oleh Syarat dan Ketentuan ini ("Syarat"). Jika Anda tidak setuju dengan Syarat ini, mohon untuk tidak menggunakan layanan kami.
+                    </p>
+                    <p>
+                        AetherSub berhak untuk mengubah Syarat ini kapan saja tanpa pemberitahuan sebelumnya. Versi terbaru akan selalu dipublikasikan di halaman ini.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl md:text-3xl font-bold text-red-600 mb-4">
+                        2. Pemesanan Produk Kustom
+                    </h2>
+                    
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2 mt-4">
+                        A. Kustomisasi
+                    </h3>
+                    <p>
+                        Kami menawarkan kustomisasi nama dan nomor punggung secara gratis. Pelanggan bertanggung jawab penuh atas keakuratan data kustomisasi (ejaan nama dan angka) yang dimasukkan saat pemesanan.
+                    </p>
+                    
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2 mt-4">
+                        B. Ketidaksesuaian
+                    </h3>
+                    <p>
+                        Kami berusaha menampilkan warna dan detail produk seakurat mungkin. Namun, perbedaan warna antara tampilan di layar monitor dan produk fisik dapat terjadi dan bukan merupakan cacat produk.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl md:text-3xl font-bold text-red-600 mb-4">
+                        3. Pembayaran dan Pembatalan
+                    </h2>
+                    
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2 mt-4">
+                        A. Pembayaran
+                    </h3>
+                    <p>
+                        Semua harga yang tertera adalah dalam Rupiah (IDR). Pesanan hanya akan diproses dan masuk tahap produksi setelah pembayaran penuh diterima dan diverifikasi.
+                    </p>
+                    
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2 mt-4">
+                        B. Pembatalan
+                    </h3>
+                    <p class="mb-2 font-bold text-red-700">
+                        PENTING: Karena sifat produk kami yang kustom (sesuai pesanan), pesanan TIDAK DAPAT dibatalkan atau diubah setelah 2 jam dari waktu konfirmasi pembayaran.
+                    </p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li>Jika pembatalan diajukan dalam waktu 2 jam, pengembalian dana penuh akan diproses.</li>
+                        <li>Setelah 2 jam, pesanan dianggap final dan tidak dapat dibatalkan.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl md:text-3xl font-bold text-red-600 mb-4">
+                        4. Pengiriman dan Pengembalian
+                    </h2>
+                    
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2 mt-4">
+                        A. Pengiriman
+                    </h3>
+                    <p>
+                        Waktu pengiriman standar adalah 2-3 hari kerja untuk produksi ditambah waktu pengiriman logistik. Perkiraan waktu pengiriman bersifat indikatif. Kami tidak bertanggung jawab atas keterlambatan yang disebabkan oleh pihak ketiga (kurir).
+                    </p>
+                    
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2 mt-4">
+                        B. Pengembalian dan Penukaran
+                    </h3>
+                    <p class="mb-2">
+                        Pengembalian atau penukaran hanya diterima jika:
+                    </p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li>Terdapat cacat produksi (robek, salah jahit).</li>
+                        <li>Terjadi kesalahan pengiriman dari pihak kami (salah ukuran yang dikirim, tidak sesuai dengan pesanan).</li>
+                        <li>**Penukaran TIDAK diterima** untuk kesalahan pemilihan ukuran atau kesalahan input kustomisasi dari pihak pelanggan.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl md:text-3xl font-bold text-red-600 mb-4">
+                        5. Hukum yang Berlaku
+                    </h2>
+                    <p>
+                        Syarat dan Ketentuan ini diatur oleh dan ditafsirkan sesuai dengan hukum Republik Indonesia.
+                    </p>
+                </section>
+
+                <div class="text-center pt-8 border-t border-gray-200">
+                    <a href="/" class="text-lime-600 font-semibold hover:text-red-600 transition duration-150">
+                        Kembali ke Beranda <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</BaseLayout>

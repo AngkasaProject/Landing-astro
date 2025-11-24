@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Momo+Trust+Display&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import "tailwindcss";
+
+/* ----------------------------------- */
+/* CSS KUSTOM */
+/* ----------------------------------- */
+
+.font-judul {
+  font-family: "Playfair Display", serif;
+  font-style: normal;
+}
+.font-judul2 {
+  font-family: "Momo Trust Display", sans-serif;
+  font-style: italic;
+}
+
+.font-base {
+  font-family: "Open Sans", sans-serif;
+}
+
+/* Container untuk Gambar Parallax */
+.parallax-bg {
+  transition: transform 0.1s ease-out;
+  background-image: url("/asset/images/hero.png"); /* Ganti dengan path gambar Anda */
+  background-size: cover;
+  background-position: center top;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.about-ngus {
+  background-position: center top;
+}
+
+/* Transisi Header untuk efek mulus */
+.header-transition {
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* ----------------------------------- */
+/* CSS Untuk Carousel Horizontal */
+/* ----------------------------------- */
+#gallery-carousel {
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+#gallery-carousel::-webkit-scrollbar {
+  display: none;
+}
+.carousel-item {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+/* ----------------------------------- */
+/* CSS Untuk Testimonial Carousel Horizontal (Baru) */
+/* ----------------------------------- */
+#testimonial-carousel {
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding-bottom: 0.5rem; /* Memberi ruang untuk scroll di iOS */
+}
+#testimonial-carousel::-webkit-scrollbar {
+  display: none;
+}
+.testimonial-item {
+  flex-shrink: 0;
+  /* Lebar di mobile: ~85% dari viewport, berpusat */
+  width: 85vw;
+  max-width: 400px;
+  scroll-snap-align: center;
+  margin-right: 1.5rem; /* gap-x-6 */
+}
+.testimonial-item:last-child {
+  /* Menghilangkan margin pada item terakhir agar tidak terlalu jauh */
+  margin-right: 0;
+}
+
+/* Styling radio button kustom */
+input[type="radio"]:checked + label {
+  background-color: #ef4444; /* red-500 */
+  color: white;
+  border-color: #ef4444;
+}
+/* CSS untuk Sidebar */
+#mobile-menu-sidebar {
+  transition: transform 0.3s ease-in-out;
+}
+
+#footer-logo {
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease-in-out;
+}
+
+.footer-logo-container:hover #footer-logo {
+  filter: none;
+}
+
+.nav-link-animated {
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-link-animated::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -6px;
+  left: 0;
+  background-color: oklch(76.8% 0.233 130.85);
+  transform: scaleX(0);
+  transform-origin: bottom left;
+  transition: transform 0.3s ease-out;
+}
+
+.nav-link-animated:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
