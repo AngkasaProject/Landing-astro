@@ -422,7 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
           icon.classList.remove("text-white");
           icon.classList.add("text-gray-900", "hover:text-lime-600");
         });
-        if (headerLogo) headerLogo.src = "./asset/images/logo-web-dark.png";
+        if (headerLogo) headerLogo.src = "/asset/images/logo-web-dark.png";
       } else {
         // SCROLLED TOP
         header.classList.remove("bg-white", "shadow-md");
@@ -436,7 +436,7 @@ document.addEventListener("DOMContentLoaded", () => {
           icon.classList.remove("text-gray-900", "hover:text-lime-600");
           icon.classList.add("text-white");
         });
-        if (headerLogo) headerLogo.src = "./asset/images/logo-web.png";
+        if (headerLogo) headerLogo.src = "/asset/images/logo-web.png";
       }
     };
 

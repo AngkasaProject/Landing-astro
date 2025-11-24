@@ -35,7 +35,7 @@ const formatRupiah = (price) => {
     }).format(price);
 };
 
-// Fungsi untuk slugifying nama kategori
+
 const productCategorySlug = (name) => 
     name.toLowerCase()
         .replace(/[^a-z0-9\s-]/g, '')
@@ -43,7 +43,6 @@ const productCategorySlug = (name) =>
         .replace(/^-*|-*$/g, '');
 
 
-// --- 3. DATA PRODUK (DENGAN ANOTASI TIPE) ---
 /** @type {Product[]} */
 const products = [
   {
@@ -54,13 +53,12 @@ const products = [
     isNew: true,
     isSale: true,
     rating: 4.9,
-    category: "Timnas 2024", 
-    // Menggunakan Placehold.co untuk gambar utama (600x600)
+    category: "Timnas", 
     imageSrc: "https://placehold.co/600x600/CCCCCC/000000?text=P101%20HOME", 
     images: [
-        // Thumbnail 1
+
         { thumb: "https://placehold.co/100x100/EEEEEE/333333?text=T101-1", full: "https://placehold.co/600x600/CCCCCC/000000?text=P101%20FULL%201" },
-        // Thumbnail 2 (Contoh variasi gambar)
+
         { thumb: "https://placehold.co/100x100/D4A4B4/333333?text=T101-2", full: "https://placehold.co/600x600/D4A4B4/000000?text=P101%20FULL%202" }
     ],
   },
@@ -72,7 +70,7 @@ const products = [
     isNew: false,
     isSale: true,
     rating: 4.7,
-    category: "Timnas 2024",
+    category: "Timnas",
     imageSrc: "https://placehold.co/600x600/CCCCCC/000000?text=P102%20AWAY",
     images: [{ thumb: "https://placehold.co/100x100/EEEEEE/333333?text=T102", full: "https://placehold.co/600x600/CCCCCC/000000?text=P102%20FULL" }],
   },
@@ -84,7 +82,7 @@ const products = [
     isNew: false,
     isSale: false,
     rating: 4.8,
-    category: "retro",
+    category: "Retro",
     imageSrc: "https://placehold.co/600x600/CCCCCC/000000?text=P105%20RETRO",
     images: [{ thumb: "https://placehold.co/100x100/EEEEEE/333333?text=T105", full: "https://placehold.co/600x600/CCCCCC/000000?text=P105%20FULL" }],
   },
@@ -96,7 +94,7 @@ const products = [
     isNew: false,
     isSale: false,
     rating: 4.5,
-    category: "Training",
+    category: "Retro",
     imageSrc: "https://placehold.co/600x600/CCCCCC/000000?text=P104%20TRAINING",
     images: [{ thumb: "https://placehold.co/100x100/EEEEEE/333333?text=T104", full: "https://placehold.co/600x600/CCCCCC/000000?text=P104%20FULL" }],
   },
