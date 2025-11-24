@@ -9,11 +9,11 @@ interface Props {
 
 // --- LOGIKA GLOBAL ---
 // GANTI DENGAN NOMOR DAN PESAN WHATSAPP ANDA YANG SEBENARNYA
-const whatsappNumber = "6281234567890"; 
-const defaultMessage = "Halo JersyKita, saya tertarik dengan jersey Anda. Bisakah saya bertanya lebih lanjut?"; 
+const whatsappNumber = "6285171140818"; 
+const defaultMessage = "Halo AetherSub, saya tertarik dengan jersey Anda. Bisakah saya bertanya lebih lanjut?"; 
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
 
-const { title = "JersyKita - Toko Jersey Online Terbaik" } = Astro.props;
+const { title = "AetherSub - Toko Jersey Online Terbaik" } = Astro.props;
 const currentYear = new Date().getFullYear();
 ---
 
@@ -24,7 +24,7 @@ const currentYear = new Date().getFullYear();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
 
-    <meta name="description" content="JersyKita menyediakan koleksi jersey premium custom nama dan nomor gratis. Temukan jersey timnas, retro, dan training dengan kualitas terbaik." />
+    <meta name="description" content="AetherSub menyediakan layanan jersey sublimasi custom untuk e-sport, futsal, dan komunitas. Desain gratis, kualitas premium, dan minimal order rendah. Konsultasi sekarang!" />
     <link rel="canonical" href={Astro.url} /> 
 
     <link rel="icon" type="image/x-icon" href="/favicon.svg" />
@@ -32,10 +32,10 @@ const currentYear = new Date().getFullYear();
     <meta name="theme-color" content="#dc2626" /> 
 
     <meta property="og:title" content={title} />
-    <meta property="og:description" content="JersyKita menyediakan koleksi jersey premium custom nama dan nomor gratis. Temukan jersey timnas, retro, dan training dengan kualitas terbaik." />
+    <meta property="og:description" content="AetherSub menyediakan layanan jersey sublimasi custom untuk e-sport, futsal, dan komunitas. Desain gratis, kualitas premium, dan minimal order rendah. Konsultasi sekarang!" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
-    <meta property="og:image" content="https://www.nama-domain-anda.com/asset/images/logo-web-dark.png" />
+    <meta property="og:image" content="https://aethersub.store/asset/images/logo-web-dark.png" />
     
     <link
       rel="stylesheet"
@@ -58,21 +58,21 @@ const currentYear = new Date().getFullYear();
               <img 
                   id="footer-logo" 
                   src="/asset/images/logo-web.png" 
-                  alt="Logo JersyKita" 
+                  alt="Logo AetherSub" 
                   class="h-15" 
               />
             </div>
             <p class="text-gray-400 text-sm mb-4">
-              Pusat Jersey Original dan Kustom Terbaik di Indonesia.
+              Vendor Jersey Pilihan terbaik 
             </p>
             <div class="space-y-2 text-sm">
               <p class="text-gray-400 flex items-center">
                 <i class="fa-solid fa-phone w-4 h-4 mr-2 text-red-600"></i>
-                +62 812-3456-7890
+                +62 851-7114-0818
               </p>
               <p class="text-gray-400 flex items-center">
                 <i class="fa-solid fa-envelope w-4 h-4 mr-2 text-red-600"></i>
-                support@jersykita.id
+                Helpdesk@aethersub.store
               </p>
             </div>
           </div>
@@ -134,7 +134,7 @@ const currentYear = new Date().getFullYear();
             <h4 class="text-lg font-semibold text-white mb-4">Ikuti Kami</h4>
             <div class="flex space-x-4 mt-6">
               <a
-                href="#"
+                href="https://instagram.com/aethersub"
                 class="text-gray-400 hover:text-red-600 transition duration-150"
                 ><i class="fa-brands fa-instagram text-2xl"></i
               ></a>
@@ -158,7 +158,7 @@ const currentYear = new Date().getFullYear();
         </div>
         <div class="border-t border-gray-700 mt-10 pt-6 text-center">
           <p class="text-gray-500 text-xs">
-            &copy; {currentYear} JersyKita. Semua Hak Dilindungi Undang-Undang.
+            &copy; {currentYear} AetherSub | Angkasa Project.
           </p>
         </div>
       </div>
@@ -169,7 +169,7 @@ const currentYear = new Date().getFullYear();
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Hubungi kami melalui WhatsApp"
-        class="fixed bottom-6 right-6 z-50 bg-lime-600 p-4 rounded-full shadow-2xl hover:bg-lime-700 transition duration-300 transform hover:scale-110 ease-in-out"
+        class="fixed bottom-6 right-6 z-50 bg-lime-600 p-4 rounded-2xl shadow-2xl hover:bg-lime-700 transition duration-300 transform hover:scale-110 ease-in-out"
     >
         <i class="fa-brands fa-whatsapp text-white text-3xl"></i>
     </a>

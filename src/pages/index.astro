@@ -1,81 +1,75 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+// --- DATA PRODUK DISINKRONKAN DENGAN SKEMA produk.astro ---
 const products = [
   {
     id: 101,
-    name: "Jersey Home Timnas Garuda 2024 Premium",
-    price: 129000,
-    oldPrice: 199000,
+    name: "Jersey Atasan Pola & Kerah Standar",
+    price: 110000,
+    oldPrice: 150000,
     isNew: true,
     isSale: true,
     rating: 4.9,
+    category: "Jersey", 
+    imageSrc: "https://placehold.co/600x600/CCCCCC/000000?text=P101%20HOME", 
+    images: [
+        { thumb: "https://placehold.co/100x100/EEEEEE/333333?text=T101-1", full: "https://placehold.co/600x600/CCCCCC/000000?text=P101%20FULL%201" },
+        { thumb: "https://placehold.co/100x100/D4A4B4/333333?text=T101-2", full: "https://placehold.co/600x600/D4A4B4/000000?text=P101%20FULL%202" }
+    ],
   },
   {
     id: 102,
-    name: "Jersey Away Timnas Garuda 2024 (Putih)",
-    price: 129000,
+    name: "Jersey Setelan Lengkap standar",
+    price: 155000,
     oldPrice: 199000,
     isNew: false,
     isSale: true,
     rating: 4.7,
+    category: "Jersey",
+    imageSrc: "https://placehold.co/600x600/CCCCCC/000000?text=P102%20AWAY",
+    images: [{ thumb: "https://placehold.co/100x100/EEEEEE/333333?text=T102", full: "https://placehold.co/600x600/CCCCCC/000000?text=P102%20FULL" }],
   },
   {
-    id: 103,
-    name: "Jersey Ketiga Timnas (Hitam) Kualitas Fans",
-    price: 105000,
-    oldPrice: 159000,
-    isNew: true,
+    id: 105,
+    name: "Jersey Vintage polo",
+    price: 120000,
+    oldPrice: 180000,
+    isNew: false,
     isSale: false,
     rating: 4.8,
+    category: "Vintage",
+    imageSrc: "https://placehold.co/600x600/CCCCCC/000000?text=P105%20RETRO",
+    images: [{ thumb: "https://placehold.co/100x100/EEEEEE/333333?text=T105", full: "https://placehold.co/600x600/CCCCCC/000000?text=P105%20FULL" }],
   },
   {
     id: 104,
-    name: "Jersey Training Timnas Merah Premium",
-    price: 99000,
+    name: "Jersey Polo standar Wangky",
+    price: 120000,
     oldPrice: null,
     isNew: false,
     isSale: false,
     rating: 4.5,
-  },
-  {
-    id: 105,
-    name: "Jersey Retro Home 2004 Legend Collection",
-    price: 155000,
-    oldPrice: 220000,
-    isNew: true,
-    isSale: true,
-    rating: 5.0,
-  },
-  {
-    id: 106,
-    name: "Jersey Kiper Timnas Hijau Stabilo",
-    price: 119000,
-    oldPrice: null,
-    isNew: false,
-    isSale: false,
-    rating: 4.6,
+    category: "Polo",
+    imageSrc: "https://placehold.co/600x600/CCCCCC/000000?text=P104%20TRAINING",
+    images: [{ thumb: "https://placehold.co/100x100/EEEEEE/333333?text=T104", full: "https://placehold.co/600x600/CCCCCC/000000?text=P104%20FULL" }],
   },
 ];
 
-	const carouselItems = [
-  { id: 1, text: "READY STOCK! Jersey Home 2024. Kustom GRATIS!", color: "bg-red-600" },
+const carouselItems = [
+  { id: 1, text: "READY STOCK! Jersey Home 2024. Kustom GRATIS!", color: "bg-lime-600" },
   { id: 2, text: "DISCOUNT 5% untuk pembelian di atas Rp300.000.", color: "bg-gray-900" },
   { id: 3, text: "Koleksi Retro 2004 Resmi Dirilis! Cek Sekarang.", color: "bg-red-800" },
 ];
 
-function formatRupiah(number: number) { // <-- TAMBAHKAN : number
-    // Memastikan input adalah angka sebelum diolah
+function formatRupiah(number: number) { 
     if (typeof number !== 'number') return 'Rp 0';
-    
-    // Perhatikan: fungsi ini adalah versi sederhana yang Anda gunakan
     return "Rp " + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-	
 }
-
 ---
 
 <BaseLayout title="AetherSub | Vendor Jersey Terpercaya">
-	    <section
+    <section
       id="hero-section"
       class="relative overflow-hidden min-h-screen pb-4"
     >
@@ -144,6 +138,16 @@ function formatRupiah(number: number) { // <-- TAMBAHKAN : number
             style="background-image: url('/asset/images/slide3.png')"
           ></div>
         </div>
+        
+        <div
+          class="carousel-item relative flex items-center justify-cente w-screen h-full flex-shrink-0"
+          data-slide-index="1-copy"
+        >
+          <div
+            class="absolute inset-0 bg-cover bg-center-top"
+            style="background-image: url('/asset/images/slide1.png')"
+          ></div>
+        </div>
       </div>
     </section>
 
@@ -160,9 +164,9 @@ function formatRupiah(number: number) { // <-- TAMBAHKAN : number
             class="absolute inset-0 z-10 w-full h-full flex items-center justify-center p-4 sm:p-6 bg-gray-900/50"
           >
             <h3
-              class="text-xl sm:text-3xl md:text-5xl font-extrabold text-white text-center leading-snug"
+              class="text-xl sm:text-3xl md:text-5xl font-semibold text-white text-center leading-snug"
             >
-              <span class="text-red-500">KUALITAS</span> TERBAIK.<br />
+              <span class="text-lime-600">KUALITAS</span> TERBAIK.<br />
               GARANSI ASLI 100%.
             </h3>
           </div>
@@ -178,143 +182,63 @@ function formatRupiah(number: number) { // <-- TAMBAHKAN : number
             class="absolute inset-0 z-10 w-full h-full flex items-center justify-center p-4 sm:p-6 bg-gray-900/50"
           >
             <h3
-              class="text-xl sm:text-3xl md:text-5xl font-extrabold text-white text-center leading-snug"
+              class="text-xl sm:text-3xl md:text-5xl font-semibold text-white text-center leading-snug"
             >
               CUSTOM NAMA<br />
-              & NOMOR <span class="text-red-500">GRATIS.</span>
+              & NOMOR <span class="text-lime-600">GRATIS.</span>
             </h3>
           </div>
         </div>
       </div>
     </section>
-	
+  
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" id="produk">
       <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">
         Jersey Pilihan Kami
       </h2>
+      
       <div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6 md:gap-8">
-        <div
-          class="bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1"
-        >
-          <div
-            class="h-56 bg-gray-200 flex items-center justify-center"
-            style="
-              background-image: url('https://picsum.photos/seed/item101/400/400');
-              background-size: cover;
-              background-position: center;
-            "
-          ></div>
-          <div class="p-4">
-            <h3 class="text-sm md:text-lg font-semibold text-gray-900 truncate">
-              Jersey Home Team A 24/25
-            </h3>
-            <p class="text-xs text-gray-500">Klub Sepak Bola</p>
-            <div class="mt-2 flex justify-between items-center">
-              <span class="text-base md:text-xl font-bold text-red-600"
-                >Rp 129.000</span
-              ><button
-                onclick="openProductModal(101, 'Jersey Home Team A 24/25', 129000)"
-                class="text-xs md:text-sm bg-gray-900 hover:bg-red-600 text-white p-1 px-2 md:py-2 md:px-4 rounded-md transition duration-150"
-              >
-                <i class="fa-solid fa-basket-shopping md:hidden"></i>
-                <span class="hidden md:inline">Beli Sekarang</span>
-              </button>
+        {products.map((product) => (
+            <div
+                class="bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1"
+            >
+                <div
+                    class="h-56 bg-gray-200 flex items-center justify-center"
+                    style={`
+                        background-image: url('${product.imageSrc}');
+                        background-size: cover;
+                        background-position: center;
+                    `}
+                ></div>
+                <div class="p-4">
+                    <h3 class="text-sm md:text-lg font-semibold text-gray-900 truncate">
+                        {product.name}
+                    </h3>
+                    <p class="text-xs text-gray-500">{product.category}</p>
+                    <div class="mt-2 flex justify-between items-center">
+                        <span class="text-base md:text-xl font-bold text-lime-600">
+                            {formatRupiah(product.price)}
+                        </span>
+                        
+                        <button
+                            class="open-product-modal text-xs md:text-sm bg-gray-900 hover:bg-lime-600 text-white p-1 px-2 md:py-2 md:px-4 rounded-md transition duration-150"
+                            data-product-id={product.id}
+                            data-product-name={product.name}
+                            data-product-price={product.price}
+                            data-product-images={JSON.stringify(product.images)}
+                        >
+                            <i class="fa-solid fa-basket-shopping md:hidden"></i>
+                            <span class="hidden md:inline">Beli Sekarang</span>
+                        </button>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div
-          class="bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1"
-        >
-          <div
-            class="h-56 bg-gray-200 flex items-center justify-center"
-            style="
-              background-image: url('https://picsum.photos/seed/item102/400/400');
-              background-size: cover;
-              background-position: center;
-            "
-          ></div>
-          <div class="p-4">
-            <h3 class="text-sm md:text-lg font-semibold text-gray-900 truncate">
-              Jersey Away Team B 24/25
-            </h3>
-            <p class="text-xs text-gray-500">Tim Nasional</p>
-            <div class="mt-2 flex justify-between items-center">
-              <span class="text-base md:text-xl font-bold text-red-600"
-                >Rp 149.000</span
-              ><button
-                onclick="openProductModal(102, 'Jersey Away Team B 24/25', 149000)"
-                class="text-xs md:text-sm bg-gray-900 hover:bg-red-600 text-white p-1 px-2 md:py-2 md:px-4 rounded-md transition duration-150"
-              >
-                <i class="fa-solid fa-basket-shopping md:hidden"></i>
-                <span class="hidden md:inline">Beli Sekarang</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1"
-        >
-          <div
-            class="h-56 bg-gray-200 flex items-center justify-center"
-            style="
-              background-image: url('https://picsum.photos/seed/item103/400/400');
-              background-size: cover;
-              background-position: center;
-            "
-          ></div>
-          <div class="p-4">
-            <h3 class="text-sm md:text-lg font-semibold text-gray-900 truncate">
-              Jersey Retro Team C
-            </h3>
-            <p class="text-xs text-gray-500">Jersey Klasik</p>
-            <div class="mt-2 flex justify-between items-center">
-              <span class="text-base md:text-xl font-bold text-red-600"
-                >Rp 199.000</span
-              ><button
-                onclick="openProductModal(103, 'Jersey Retro Team C', 199000)"
-                class="text-xs md:text-sm bg-gray-900 hover:bg-red-600 text-white p-1 px-2 md:py-2 md:px-4 rounded-md transition duration-150"
-              >
-                <i class="fa-solid fa-basket-shopping md:hidden"></i>
-                <span class="hidden md:inline">Beli Sekarang</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1"
-        >
-          <div
-            class="h-56 bg-gray-200 flex items-center justify-center"
-            style="
-              background-image: url('https://picsum.photos/seed/item104/400/400');
-              background-size: cover;
-              background-position: center;
-            "
-          ></div>
-          <div class="p-4">
-            <h3 class="text-sm md:text-lg font-semibold text-gray-900 truncate">
-              Jersey Training Team D
-            </h3>
-            <p class="text-xs text-gray-500">Pakaian Latihan</p>
-            <div class="mt-2 flex justify-between items-center">
-              <span class="text-base md:text-xl font-bold text-red-600"
-                >Rp 99.000</span
-              ><button
-                onclick="openProductModal(104, 'Jersey Training Team D', 99000)"
-                class="text-xs md:text-sm bg-gray-900 hover:bg-red-600 text-white p-1 px-2 md:py-2 md:px-4 rounded-md transition duration-150"
-              >
-                <i class="fa-solid fa-basket-shopping md:hidden"></i>
-                <span class="hidden md:inline">Beli Sekarang</span>
-              </button>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
-
       <div class="mt-12 text-center">
         <a
           href="/produk"
-          class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 transition duration-150"
+          class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-lime-600 hover:bg-red-700 transition duration-150"
         >
           Tampilkan Semua Produk
         </a>
@@ -330,7 +254,7 @@ function formatRupiah(number: number) { // <-- TAMBAHKAN : number
           class="grid grid-cols-2 gap-8 text-center md:grid-cols-4 md:gap-12"
         >
           <div class="p-4 flex flex-col items-center">
-            <i class="fa-solid fa-certificate text-5xl text-red-600 mb-4"></i>
+            <i class="fa-solid fa-certificate text-5xl text-lime-600 mb-4"></i>
             <h3 class="text-lg font-semibold text-gray-900 mb-1">
               100% Kualitas Premium
             </h3>
@@ -339,7 +263,7 @@ function formatRupiah(number: number) { // <-- TAMBAHKAN : number
             </p>
           </div>
           <div class="p-4 flex flex-col items-center">
-            <i class="fa-solid fa-paintbrush text-5xl text-red-600 mb-4"></i>
+            <i class="fa-solid fa-paintbrush text-5xl text-lime-600 mb-4"></i>
             <h3 class="text-lg font-semibold text-gray-900 mb-1">
               Kustom Nama Gratis
             </h3>
@@ -348,7 +272,7 @@ function formatRupiah(number: number) { // <-- TAMBAHKAN : number
             </p>
           </div>
           <div class="p-4 flex flex-col items-center">
-            <i class="fa-solid fa-truck-fast text-5xl text-red-600 mb-4"></i>
+            <i class="fa-solid fa-truck-fast text-5xl text-lime-600 mb-4"></i>
             <h3 class="text-lg font-semibold text-gray-900 mb-1">
               Pengiriman Cepat
             </h3>
@@ -357,7 +281,7 @@ function formatRupiah(number: number) { // <-- TAMBAHKAN : number
             </p>
           </div>
           <div class="p-4 flex flex-col items-center">
-            <i class="fa-solid fa-headset text-5xl text-red-600 mb-4"></i>
+            <i class="fa-solid fa-headset text-5xl text-lime-600 mb-4"></i>
             <h3 class="text-lg font-semibold text-gray-900 mb-1">
               Dukungan 24/7
             </h3>
@@ -450,10 +374,11 @@ function formatRupiah(number: number) { // <-- TAMBAHKAN : number
         </div>
       </div>
     </section>
+
     <div 
     id="construction-modal" 
     class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-gray-900/80 backdrop-blur-sm transition-opacity duration-300"
->
+    >
     <div class="bg-white p-8 md:p-10 rounded-xl shadow-2xl max-w-sm md:max-w-md w-full relative transform transition-all scale-100 opacity-100">
         <button 
             id="construction-close-btn" 
@@ -475,14 +400,14 @@ function formatRupiah(number: number) { // <-- TAMBAHKAN : number
                 Mohon maaf, beberapa fitur di situs ini masih dalam tahap pengembangan dan perbaikan.
             </p>
             
-            <p class="text-sm font-semibold text-red-500 mb-4">
+            <p class="text-sm font-semibold text-lime-600 mb-4">
                 Notifikasi ini akan tertutup otomatis dalam beberapa detik.
             </p>
 
             <button 
                 id="construction-close-btn-lg"
                 type="button" 
-                class="w-full justify-center rounded-lg border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none hidden md:inline-flex transition"
+                class="w-full justify-center rounded-lg border border-transparent bg-lime-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none hidden md:inline-flex transition"
             >
                 Mengerti
             </button>

@@ -1,4 +1,4 @@
-// public/scripts/app.js (GLOBAL LAYOUT & SCROLL LOGIC - REVISI FINAL)
+// public/scripts/app.js (FINAL & STABIL)
 
 document.addEventListener("DOMContentLoaded", () => {
   // Hanya ambil elemen yang dikendalikan oleh app.js
@@ -6,21 +6,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // -----------------------------------
   // --- 1. PARALLAX EFFECT ---
-  // Hapus semua logika Header Scroll yang berkonflik.
   // -----------------------------------
   function handleParallaxScroll() {
     const scrollPos = window.scrollY;
 
-    // A. Logika Parallax (DIJAGA)
     if (parallaxImage) {
       parallaxImage.style.transform = `translateY(${scrollPos * 0.4}px)`;
     }
-
-    // B. Logika Header Scroll di sini SUDAH DIHAPUS.
-    // Kontrol Header diserahkan sepenuhnya ke header-logic.js
   }
 
-  // --- 2. CAROUSEL AUTO-SLIDE & INFINITE LOOP LOGIC ---
+  // -----------------------------------
+  // --- 2. CAROUSEL AUTO-SLIDE & INFINITE LOOP LOGIC (DIPERBAIKI) ---
+  // -----------------------------------
   function setupCarousel() {
     const carousel = document.getElementById("gallery-carousel");
     const carouselItems = document.querySelectorAll(
@@ -33,30 +30,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentIndex = 0;
 
-    // Dapatkan lebar satu slide (PENTING untuk perhitungan posisi)
-    const slideWidth = carouselItems[0]?.clientWidth || window.innerWidth;
-    const resetPoint = numRealSlides * slideWidth; // Posisi slide duplikat ke-1
+    // FUNGSI KRITIS: Selalu mendapatkan lebar layar
+    const getSlideWidth = () => window.innerWidth;
 
     function autoScrollCarousel() {
+      // Ambil nilai lebar yang terbaru di setiap interval
+      const slideWidth = getSlideWidth();
+
       currentIndex++;
       let targetScrollPos = currentIndex * slideWidth;
+      const resetPoint = numRealSlides * slideWidth;
 
       // Logika Auto-Slide & Infinite Loop
-      if (targetScrollPos >= resetPoint) {
-        // Scroll ke slide duplikat ke-1 (yang sama dengan slide 1)
+      if (currentIndex >= numRealSlides) {
+        // 1. Scroll ke slide duplikat
         carousel.scrollTo({
           left: targetScrollPos,
           behavior: "smooth",
         });
 
-        // Reset posisi scroll secara instan setelah transisi selesai
+        // 2. Reset posisi scroll secara instan setelah transisi selesai
         setTimeout(() => {
           carousel.style.scrollBehavior = "auto";
           carousel.scrollLeft = 0; // Lompat ke slide 1 asli
-          carousel.style.scrollBehavior = "smooth";
-        }, 500); // Tunggu sebentar (500ms) setelah scroll selesai
+          requestAnimationFrame(() => {
+            carousel.style.scrollBehavior = "smooth";
+          });
+        }, 500);
 
-        currentIndex = 0; // Reset index untuk auto-scroll berikutnya
+        currentIndex = 0;
         return;
       }
 
@@ -70,10 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Logika untuk menangani reset saat scroll manual
     carousel.addEventListener("scroll", () => {
       const scrollPos = carousel.scrollLeft;
-      if (scrollPos >= resetPoint) {
-        // Manual scroll reset: Langsung ke set asli
+      const dynamicResetPoint = numRealSlides * getSlideWidth();
+
+      if (scrollPos >= dynamicResetPoint) {
         carousel.style.scrollBehavior = "auto";
-        carousel.scrollLeft = scrollPos - resetPoint;
+        carousel.scrollLeft = scrollPos - dynamicResetPoint;
+        currentIndex = 0;
         requestAnimationFrame(() => {
           carousel.style.scrollBehavior = "smooth";
         });
@@ -82,9 +86,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Jalankan auto-scroll
     setInterval(autoScrollCarousel, scrollDuration);
+
+    // Handle resize
+    window.addEventListener("resize", () => {
+      carousel.style.scrollBehavior = "auto";
+      carousel.scrollLeft = currentIndex * getSlideWidth();
+      requestAnimationFrame(() => {
+        carousel.style.scrollBehavior = "smooth";
+      });
+    });
   }
 
-  // --- 2. UNDER CONSTRUCTION NOTIFICATION --
+  // -----------------------------------
+  // --- 3. UNDER CONSTRUCTION NOTIFICATION (DENGAN sessionStorage) ---
+  // -----------------------------------
   const constructionModal = document.getElementById("construction-modal");
   const constructionCloseBtn = document.getElementById(
     "construction-close-btn"
@@ -93,11 +108,12 @@ document.addEventListener("DOMContentLoaded", () => {
     "construction-close-btn-lg"
   );
 
+  // KEY UNTUK SESSION STORAGE
+  const SESSION_KEY = "constructionModalShown";
+
   const closeConstructionModal = () => {
     if (constructionModal) {
       constructionModal.classList.add("hidden");
-      // Hanya hapus overflow jika modal lain tidak terbuka
-      // Menggunakan fungsi helper dari header-logic.js (jika tersedia) atau langsung hapus
       document.body.classList.remove("overflow-hidden");
     }
   };
@@ -111,35 +127,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- LOGIKA DELAY UTAMA & PEMBATASAN HALAMAN ---
   if (constructionModal) {
-    // 1. Cek Halaman (Hanya di root '/' atau '/index.html')
-    // Memastikan fitur ini hanya berjalan di Homepage
+    // 1. Cek Halaman & Session Storage
     const currentPath = window.location.pathname;
     const isHomepage = currentPath === "/" || currentPath === "/index.html";
 
-    if (!isHomepage) {
-      // Hentikan eksekusi jika bukan homepage
+    // HENTIKAN LOGIKA MODAL jika bukan homepage ATAU sudah ditampilkan
+    if (!isHomepage || sessionStorage.getItem(SESSION_KEY)) {
+      // Tidak ada pernyataan 'return' di sini yang mengganggu setupCarousel()
       return;
     }
 
     // 2. Konfigurasi Waktu
-    const openDelayInMilliseconds = 5000; // 5 detik: Waktu sebelum modal muncul
-    const autoCloseDuration = 15000; // 3 detik: Durasi modal tampil sebelum ditutup otomatis
+    const openDelayInMilliseconds = 5000; // 5 detik
+    const autoCloseDuration = 3000; // 3 detik (DIKOREKSI)
 
     // 3. Logika Buka (setelah 5 detik)
     setTimeout(() => {
-      // Tampilkan modal setelah 5 detik
+      // Tandai session storage sebelum ditampilkan
+      sessionStorage.setItem(SESSION_KEY, "true");
+
+      // Tampilkan modal
       constructionModal.classList.remove("hidden");
       document.body.classList.add("overflow-hidden");
 
-      // 4. Logika Tutup Otomatis (setelah 3 detik tambahan)
+      // 4. Logika Tutup Otomatis (setelah 3 detik)
       setTimeout(() => {
         closeConstructionModal();
       }, autoCloseDuration);
     }, openDelayInMilliseconds);
   }
 
-  // --- INITIALIZATION ---
-  window.addEventListener("scroll", handleParallaxScroll); // Menggunakan fungsi Parallax saja
-  handleParallaxScroll(); // Initial check for Parallax
-  setupCarousel(); // Call Carousel Logic
+  // --- INITIALIZATION (Selalu dipanggil) ---
+  window.addEventListener("scroll", handleParallaxScroll);
+  handleParallaxScroll();
+  setupCarousel(); // Pastikan ini SELALU dipanggil untuk menginisialisasi karosel
 });

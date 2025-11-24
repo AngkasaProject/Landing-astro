@@ -12,7 +12,7 @@ const headerClasses = isHomePage ? transparentHeaderClasses : solidHeaderClasses
 
 // 2. Tentukan warna teks & logo: Default (Non-homepage) = Hitam, Homepage = Putih
 const initialTextColor = isHomePage ? 'text-white' : 'text-gray-900'; 
-const initialLogoSrc = isHomePage ? './asset/images/logo-web.png' : './asset/images/logo-web-dark.png';
+const initialLogoSrc = isHomePage ? '/asset/images/logo-web.png' : '/asset/images/logo-web-dark.png';
 ---
 <header
   id="main-header"
@@ -212,7 +212,7 @@ bg-red-600 rounded-full"
         <div
           id="modal-product-image-main"
           class="w-full aspect-square bg-gray-200 rounded-lg overflow-hidden mb-4 bg-cover bg-center shadow-md border-2 border-gray-100 transition-all duration-300" 
-          style="background-image: url('./asset/images/item-placeholder-1.jpg');" 
+          style="background-image: url('/asset/images/item-placeholder-1.jpg');" 
         ></div>
 
     
@@ -222,22 +222,22 @@ bg-red-600 rounded-full"
         >
         
           <img 
-            src="./asset/images/item-placeholder-1-thumb.jpg" 
-            data-full-image="./asset/images/item-placeholder-1.jpg" 
+            src="/asset/images/item-placeholder-1-thumb.jpg" 
+            data-full-image="/asset/images/item-placeholder-1.jpg" 
             onclick="changeMainImage(this)"
             class="h-16 w-16 object-cover rounded-md cursor-pointer border-2 border-red-600 opacity-100 transition duration-200 thumbnail-item"
             alt="Detail Produk 1"
           />
           <img 
-            src="./asset/images/item-placeholder-2-thumb.jpg" 
-            data-full-image="./asset/images/item-placeholder-2.jpg" 
+            src="/asset/images/item-placeholder-2-thumb.jpg" 
+            data-full-image="/asset/images/item-placeholder-2.jpg" 
             onclick="changeMainImage(this)"
             class="h-16 w-16 object-cover rounded-md cursor-pointer border-2 border-transparent hover:border-red-600 transition duration-200 opacity-70 thumbnail-item"
             alt="Detail Produk 2"
           />
           <img 
-            src="./asset/images/item-placeholder-3-thumb.jpg" 
-            data-full-image="./asset/images/item-placeholder-3.jpg" 
+            src="/asset/images/item-placeholder-3-thumb.jpg" 
+            data-full-image="/asset/images/item-placeholder-3.jpg" 
             onclick="changeMainImage(this)"
             class="h-16 w-16 object-cover rounded-md cursor-pointer border-2 border-transparent hover:border-red-600 transition duration-200 opacity-70 thumbnail-item"
             alt="Detail Produk 3"
@@ -429,9 +429,9 @@ bg-red-600 rounded-full"
     <nav class="space-y-1">
         
         <a 
-            href="/#produk" 
+            href="/produk" 
             class={`block text-base font-semibold px-4 py-3 rounded-lg transition duration-150 ${
-                isHomePage
+                currentPath.startsWith('/produk') // <-- KONDISI DIPERBAIKI
                     ? 'bg-lime-600 text-white hover:bg-lime-700'
                     : 'text-gray-800 hover:text-white hover:bg-lime-600'
             }`} 
