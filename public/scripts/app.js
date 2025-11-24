@@ -84,6 +84,60 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(autoScrollCarousel, scrollDuration);
   }
 
+  // --- 2. UNDER CONSTRUCTION NOTIFICATION --
+  const constructionModal = document.getElementById("construction-modal");
+  const constructionCloseBtn = document.getElementById(
+    "construction-close-btn"
+  );
+  const constructionCloseBtnLg = document.getElementById(
+    "construction-close-btn-lg"
+  );
+
+  const closeConstructionModal = () => {
+    if (constructionModal) {
+      constructionModal.classList.add("hidden");
+      // Hanya hapus overflow jika modal lain tidak terbuka
+      // Menggunakan fungsi helper dari header-logic.js (jika tersedia) atau langsung hapus
+      document.body.classList.remove("overflow-hidden");
+    }
+  };
+
+  if (constructionCloseBtn) {
+    constructionCloseBtn.addEventListener("click", closeConstructionModal);
+  }
+  if (constructionCloseBtnLg) {
+    constructionCloseBtnLg.addEventListener("click", closeConstructionModal);
+  }
+
+  // --- LOGIKA DELAY UTAMA & PEMBATASAN HALAMAN ---
+  if (constructionModal) {
+    // 1. Cek Halaman (Hanya di root '/' atau '/index.html')
+    // Memastikan fitur ini hanya berjalan di Homepage
+    const currentPath = window.location.pathname;
+    const isHomepage = currentPath === "/" || currentPath === "/index.html";
+
+    if (!isHomepage) {
+      // Hentikan eksekusi jika bukan homepage
+      return;
+    }
+
+    // 2. Konfigurasi Waktu
+    const openDelayInMilliseconds = 5000; // 5 detik: Waktu sebelum modal muncul
+    const autoCloseDuration = 15000; // 3 detik: Durasi modal tampil sebelum ditutup otomatis
+
+    // 3. Logika Buka (setelah 5 detik)
+    setTimeout(() => {
+      // Tampilkan modal setelah 5 detik
+      constructionModal.classList.remove("hidden");
+      document.body.classList.add("overflow-hidden");
+
+      // 4. Logika Tutup Otomatis (setelah 3 detik tambahan)
+      setTimeout(() => {
+        closeConstructionModal();
+      }, autoCloseDuration);
+    }, openDelayInMilliseconds);
+  }
+
   // --- INITIALIZATION ---
   window.addEventListener("scroll", handleParallaxScroll); // Menggunakan fungsi Parallax saja
   handleParallaxScroll(); // Initial check for Parallax
