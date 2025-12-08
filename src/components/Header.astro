@@ -141,6 +141,23 @@ const initialLogoSrc = isHomePage
     </div>
   </div>
 </header>
+<div
+  id="custom-toast"
+  class="fixed top-5 right-0 left-0 z-[150] flex hidden justify-center px-4 opacity-0 transition-all duration-500"
+>
+  <div
+    class="flex w-full max-w-sm items-center space-x-3 rounded-xl bg-lime-600 p-4 text-white shadow-lg ring-1 ring-lime-700/50 md:max-w-lg"
+  >
+    <svg class="h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <span id="toast-message" class="text-sm font-semibold"></span>
+  </div>
+</div>
 
 {/* ======================= 2. PRODUCT DETAIL MODAL ======================= */}
 <div
@@ -181,27 +198,10 @@ const initialLogoSrc = isHomePage
         </div>
 
         <div id="modal-image-thumbnails" class="flex gap-2 overflow-x-auto pb-2">
-          <img
-            src="/asset/images/item-placeholder-1-thumb.jpg"
-            data-full-image="/asset/images/item-placeholder-1.jpg"
-            onclick="changeMainImage(this)"
+          <div
             class="thumbnail-item h-16 w-16 cursor-pointer rounded-md border-2 border-red-600 object-cover opacity-100 transition duration-200"
-            alt="Detail Produk 1"
-          />
-          <img
-            src="/asset/images/item-placeholder-2-thumb.jpg"
-            data-full-image="/asset/images/item-placeholder-2.jpg"
-            onclick="changeMainImage(this)"
-            class="thumbnail-item h-16 w-16 cursor-pointer rounded-md border-2 border-transparent object-cover opacity-70 transition duration-200 hover:border-red-600"
-            alt="Detail Produk 2"
-          />
-          <img
-            src="/asset/images/item-placeholder-3-thumb.jpg"
-            data-full-image="/asset/images/item-placeholder-3.jpg"
-            onclick="changeMainImage(this)"
-            class="thumbnail-item h-16 w-16 cursor-pointer rounded-md border-2 border-transparent object-cover opacity-70 transition duration-200 hover:border-red-600"
-            alt="Detail Produk 3"
-          />
+          >
+          </div>
         </div>
 
         <h4 id="modal-product-name" class="mt-4 text-2xl font-extrabold text-gray-900"></h4>
@@ -227,6 +227,12 @@ const initialLogoSrc = isHomePage
           </label>
 
           <div class="flex flex-wrap gap-2">
+            <input type="radio" id="sizeXS" name="size" value="XS" class="hidden" /><label
+              for="sizeXS"
+              class="cursor-pointer rounded-full border px-3 py-1 text-sm hover:border-red-500 hover:bg-red-50"
+            >
+              XS</label
+            >
             <input type="radio" id="sizeS" name="size" value="S" class="hidden" required /><label
               for="sizeS"
               class="cursor-pointer rounded-full border px-3 py-1 text-sm hover:border-red-500 hover:bg-red-50"
@@ -251,6 +257,12 @@ const initialLogoSrc = isHomePage
             >
               XL</label
             >
+            <input type="radio" id="size2XL" name="size" value="2XL" class="hidden" /><label
+              for="size2XL"
+              class="cursor-pointer rounded-full border px-3 py-1 text-sm hover:border-red-500 hover:bg-red-50"
+            >
+              2XL</label
+            >
           </div>
         </div>
 
@@ -268,10 +280,12 @@ const initialLogoSrc = isHomePage
               </tr>
             </thead>
             <tbody>
+              <tr><td class="py-1">XS</td><td class="py-1">46</td><td class="py-1">66</td></tr>
               <tr><td class="py-1">S</td><td class="py-1">48</td><td class="py-1">68</td></tr>
               <tr><td class="py-1">M</td><td class="py-1">50</td><td class="py-1">70</td></tr>
               <tr><td class="py-1">L</td><td class="py-1">52</td><td class="py-1">72</td></tr>
               <tr><td class="py-1">XL</td><td class="py-1">54</td><td class="py-1">74</td></tr>
+              <tr><td class="py-1">2XL</td><td class="py-1">56</td><td class="py-1">76</td></tr>
             </tbody>
           </table>
         </div>
@@ -296,15 +310,64 @@ const initialLogoSrc = isHomePage
           />
         </div>
 
-        <div>
-          <label class="mb-2 block text-lg font-semibold text-gray-800">Kuantitas</label>
-          <input
-            id="quantity-input"
-            type="number"
-            value="1"
-            min="1"
-            class="w-24 rounded-lg border-gray-300 text-center focus:border-red-500 focus:ring-red-500"
-          />
+        <div class="pb-4">
+          <label for="quantity-input" class="mb-2 block text-lg font-semibold text-gray-800"
+            >Kuantitas</label
+          >
+          <div class="flex items-center space-x-2">
+            <button
+              type="button"
+              id="quantity-minus"
+              class="rounded-full bg-gray-200 p-2 text-gray-700 transition hover:bg-gray-300 disabled:opacity-50"
+              aria-label="Kurangi Kuantitas"
+            >
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"
+                ></path>
+              </svg>
+            </button>
+            <input
+              type="number"
+              id="quantity-input"
+              value="1"
+              min="1"
+              max="99"
+              class="w-16 rounded-lg border border-gray-300 p-2 text-center text-lg font-medium focus:border-red-500 focus:ring-red-500"
+              aria-live="polite"
+            />
+            <button
+              type="button"
+              id="quantity-plus"
+              class="rounded-full bg-gray-200 p-2 text-gray-700 transition hover:bg-gray-300"
+              aria-label="Tambah Kuantitas"
+            >
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 4v16m8-8H4"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="quantity-discount-message"
+          class="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800"
+        >
+          <p class="mb-1 flex items-center font-bold">
+            <svg class="mr-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m0 0l-1 1h4m-4-4h10a2 2 0 002-2V9a2 2 0 00-2-2h-2"
+              ></path>
+            </svg>
+            HARGA GROSIR
+          </p>
+          <p>Dapatkan diskon **Rp 20.000** per item untuk pemesanan **di atas 10 pcs**.</p>
         </div>
       </div>
     </div>
