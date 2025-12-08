@@ -193,7 +193,7 @@ window.checkoutToWhatsapp = () => {
   message += `*Perkiraan Total: ${formatRupiah(total)}* (Belum termasuk Ongkir)\n\n`;
   message += 'Mohon diproses segera. Terima kasih!';
 
-  const whatsappNumber = '6281234567890'; // Ganti dengan nomor Anda
+  const whatsappNumber = '6285171140818'; // Ganti dengan nomor Anda
   const encodedMessage = encodeURIComponent(message);
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
