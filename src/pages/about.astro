@@ -12,21 +12,29 @@ const title = 'Tentang Kami | AetherSub';
     </div>
 
     <div class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-      <header class="relative mb-24 text-center" data-aos="fade-up">
-        <span class="mb-4 block text-sm font-bold tracking-[0.3em] text-lime-600 uppercase"
-          >Our Story</span
+      <header class="relative mb-24 overflow-hidden py-10 text-center" data-aos="fade-up">
+        <span class="mb-4 block text-sm font-bold tracking-[0.3em] text-lime-600 uppercase">
+          Our Story
+        </span>
+
+        <h1
+          class="relative z-10 mb-6 text-5xl font-black tracking-tighter text-slate-900 md:text-7xl"
         >
-        <h1 class="mb-6 text-5xl font-black tracking-tighter text-slate-900 md:text-7xl">
           We Are <span
-            class="bg-gradient-to-r from-lime-600 to-emerald-600 bg-clip-text text-transparent"
-            >AetherSub</span
+            class="bg-gradient-to-r from-lime-600 to-emerald-600 bg-clip-text px-2 pb-2 text-transparent"
           >
+            AetherSub
+          </span>
         </h1>
-        <p class="mx-auto max-w-2xl text-xl leading-relaxed font-medium text-slate-500">
+
+        <p
+          class="relative z-10 mx-auto max-w-2xl px-4 text-lg leading-relaxed font-medium text-slate-500 md:text-xl"
+        >
           Identitas Tangguh untuk Performa Tanpa Batas. Build Your Legacy With AetherSub.
         </p>
+
         <div
-          class="absolute -top-10 left-1/2 -z-20 -translate-x-1/2 text-[12rem] font-black text-slate-100/50 select-none"
+          class="pointer-events-none absolute -top-4 left-1/2 -z-20 w-full -translate-x-1/2 text-[5rem] font-black tracking-tighter text-slate-200/50 uppercase opacity-50 select-none sm:text-[8rem] md:-top-10 md:text-[12rem] md:opacity-100 lg:text-[15rem]"
         >
           ABOUT
         </div>
@@ -92,42 +100,57 @@ const title = 'Tentang Kami | AetherSub';
         </div>
       </div>
 
-      <section class="shadow-3xl relative overflow-hidden rounded-[3rem] bg-slate-900 px-8 py-20">
-        <div class="absolute top-0 right-0 -z-0 h-64 w-64 bg-lime-600/20 blur-[100px]"></div>
-        <div class="relative z-10 mb-16 text-center">
-          <h2 class="text-4xl font-black text-white" data-aos="fade-up">Core Values</h2>
-          <p class="mt-4 text-slate-400">Fondasi kami dalam melayani komunitas olahraga.</p>
+      <section
+        class="relative overflow-hidden rounded-[3rem] border border-slate-100 bg-slate-100/50 px-6 py-24"
+      >
+        <div class="absolute -top-24 -right-24 -z-0 h-96 w-96 bg-lime-200/20 blur-[120px]"></div>
+        <div class="absolute -bottom-24 -left-24 -z-0 h-96 w-96 bg-blue-100/30 blur-[120px]"></div>
+
+        <div class="relative z-10 mb-20 text-center">
+          <h2 class="text-4xl font-black tracking-tight text-slate-900" data-aos="fade-up">
+            Core Values
+          </h2>
+          <div class="mx-auto mt-4 h-1 w-12 rounded-full bg-lime-500/30"></div>
+          <p class="mt-4 font-medium text-slate-500">
+            Fondasi kami dalam melayani komunitas olahraga.
+          </p>
         </div>
 
-        <div class="relative z-10 grid gap-8 md:grid-cols-3">
+        <div class="relative z-10 mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
           {
             [
               {
                 icon: 'fa-medal',
                 title: 'Kualitas Premium',
                 desc: 'Hanya menggunakan grade kain terbaik untuk kenyamanan pengguna.',
+                glow: 'group-hover:shadow-lime-200/50',
               },
               {
                 icon: 'fa-lightbulb',
                 title: 'Orisinalitas',
                 desc: 'Setiap goresan desain lahir dari kreativitas kamu dan tim AetherSub.',
+                glow: 'group-hover:shadow-emerald-200/50',
               },
               {
                 icon: 'fa-handshake-angle',
                 title: 'Dedikasi',
                 desc: 'Kami tidak hanya menjual jersey, kami membangun hubungan jangka panjang.',
+                glow: 'group-hover:shadow-blue-200/50',
               },
             ].map((val, index) => (
               <div
-                class="group rounded-3xl border border-white/10 bg-white/5 p-10 backdrop-blur-md transition-all duration-500 hover:-translate-y-3 hover:bg-white/10"
+                class={`group rounded-3xl border border-slate-200 bg-white p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${val.glow}`}
                 data-aos="fade-up"
                 data-aos-delay={index * 100}
               >
-                <div class="mb-6 flex h-16 w-16 rotate-3 items-center justify-center rounded-2xl bg-gradient-to-br from-lime-500 to-lime-700 shadow-xl transition-transform group-hover:rotate-12">
-                  <i class={`fa-solid ${val.icon} text-3xl text-white`} />
+                <div class="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-lime-50 text-lime-600 transition-colors duration-500 group-hover:bg-lime-500 group-hover:text-white">
+                  <i class={`fa-solid ${val.icon} text-2xl`} />
                 </div>
-                <h3 class="mb-4 text-2xl font-bold tracking-tight text-white">{val.title}</h3>
-                <p class="leading-relaxed text-slate-400">{val.desc}</p>
+
+                <h3 class="mb-4 text-xl font-bold tracking-tight text-slate-800 transition-colors group-hover:text-lime-600">
+                  {val.title}
+                </h3>
+                <p class="text-sm leading-relaxed text-slate-500">{val.desc}</p>
               </div>
             ))
           }

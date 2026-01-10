@@ -146,32 +146,6 @@ const currentYear = new Date().getFullYear();
         });
       });
     </script>
-    <script is:inline>
-      window.addEventListener('scroll', () => {
-        const hero = document.getElementById('hero-section');
-        const waBtn = document.getElementById('wa-button');
-
-        if (!hero || !waBtn) return;
-
-        const heroHeight = hero.offsetHeight;
-
-        if (window.scrollY > heroHeight - 150) {
-          waBtn.classList.add('show');
-        } else {
-          waBtn.classList.remove('show');
-        }
-      });
-    </script>
-    <script>
-      window.addEventListener('load', () => {
-        const preloader = document.getElementById('preloader');
-        if (!preloader) return;
-
-        preloader.classList.add('opacity-0', 'pointer-events-none', 'transition', 'duration-1000');
-
-        setTimeout(() => preloader.remove(), 1000);
-      });
-    </script>
   </body>
 
 

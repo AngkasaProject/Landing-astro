@@ -56,23 +56,25 @@ const initialLogoSrc = isHomePage
             <img
               src={initialLogoSrc}
               alt="Aethersub Logo Premium"
-              class="h-10 w-auto md:h-12"
+              class="logo-inverted h-10 w-auto transition-all duration-500 ease-in-out md:h-12"
               id="header-logo"
             />
           </a>
         </div>
 
-        <nav class="hidden items-center space-x-6 md:flex" id="desktop-nav">
+        <nav class="hidden items-center space-x-8 md:flex" id="desktop-nav">
           <a
             href="/produk"
-            class={`nav-link text-sm font-medium ${initialTextColor} nav-link-animated transition duration-150`}
-            >PRODUCT</a
+            class={`nav-link text-sm font-bold tracking-widest ${initialTextColor} nav-link-animated hover:text-lime-500 transition-colors duration-300 uppercase`}
           >
+            Product
+          </a>
           <a
             href="/about"
-            class={`nav-link text-sm font-medium ${initialTextColor} nav-link-animated transition duration-150`}
-            >ABOUT</a
+            class={`nav-link text-sm font-bold tracking-widest ${initialTextColor} nav-link-animated hover:text-lime-500 transition-colors duration-300 uppercase`}
           >
+            About
+          </a>
         </nav>
       </div>
 

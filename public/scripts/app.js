@@ -1,106 +1,135 @@
-// public/scripts/app.js — CLEAN + STABLE + OPTIMIZED
+// public/scripts/app.js — REFINED & OPTIMIZED
 
 document.addEventListener('DOMContentLoaded', () => {
+  // === SELECTORS ===
   const card = document.getElementById('floating-info-card');
   const closeButton = document.getElementById('close-floating-card');
+  const parallaxImage = document.getElementById('parallax-image');
+  const carousel = document.getElementById('gallery-carousel');
+  const headerLogo = document.getElementById('header-logo');
+  const hero = document.getElementById('hero-section');
+  const waBtn = document.getElementById('wa-button');
+  const preloader = document.getElementById('preloader');
 
+  // ==========================================
+  // 1. UI COMPONENT: FLOATING CARD
+  // ==========================================
   if (card && closeButton) {
     closeButton.addEventListener('click', () => {
       card.removeAttribute('data-aos');
-      card.removeAttribute('data-aos-delay');
       card.classList.remove('aos-animate');
-      card.classList.add('opacity-0', 'scale-95');
-      setTimeout(() => {
-        card.classList.add('hidden');
-      }, 300);
+      card.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+      setTimeout(() => card.classList.add('hidden'), 300);
     });
   }
-  // Constant Selectors
-  const parallaxImage = document.getElementById('parallax-image');
-  const carousel = document.getElementById('gallery-carousel');
 
-  // ============================================================
-  // 1. PARALLAX EFFECT (OPTIMIZED)
-  // ============================================================
-  const handleParallaxScroll = () => {
+  // ==========================================
+  // 2. CORE SCROLL SYSTEM (MERGED FOR PERFORMANCE)
+  // ==========================================
+  const handleGlobalScroll = () => {
+    const scrollPos = window.scrollY;
+
+    // A. Parallax Logic
     if (parallaxImage) {
-      const scrollPos = window.scrollY;
       parallaxImage.style.transform = `translateY(${scrollPos * 0.4}px)`;
+    }
+
+    // B. Header Logo Invert Logic
+    if (headerLogo) {
+      if (scrollPos > 50) {
+        headerLogo.classList.remove('logo-inverted');
+      } else {
+        headerLogo.classList.add('logo-inverted');
+      }
+    }
+
+    // C. WhatsApp Button Visibility
+    if (hero && waBtn) {
+      const heroHeight = hero.offsetHeight;
+      if (scrollPos > heroHeight - 150) {
+        waBtn.classList.add('show');
+      } else {
+        waBtn.classList.remove('show');
+      }
     }
   };
 
-  // ============================================================
-  // 2. CAROUSEL AUTO-SLIDE (CLEAN & CONSISTENT)
-  // ============================================================
+  // Run scroll handle once on load & attach to scroll event
+  window.addEventListener('scroll', handleGlobalScroll, { passive: true });
+  handleGlobalScroll();
+
+  // ==========================================
+  // 3. CAROUSEL AUTO-SLIDE LOGIC
+  // ==========================================
   const setupCarousel = () => {
     if (!carousel) return;
 
-    const items = carousel.querySelectorAll('.carousel-item');
     const REAL_SLIDES = 3;
     const SLIDE_TIME = 5000;
-
-    if (items.length <= 1) return;
-
     let currentIndex = 0;
-    const slideWidth = () => window.innerWidth;
+
+    const getSlideWidth = () => carousel.offsetWidth;
 
     const autoScroll = () => {
-      const width = slideWidth();
+      const width = getSlideWidth();
       currentIndex++;
-      const target = currentIndex * width;
-      const maxPosition = REAL_SLIDES * width;
 
-      // Infinite Loop Logic
       if (currentIndex >= REAL_SLIDES) {
-        carousel.scrollTo({ left: target, behavior: 'smooth' });
+        carousel.scrollTo({ left: currentIndex * width, behavior: 'smooth' });
 
+        // Reset to first slide without animation after smooth transition
         setTimeout(() => {
           carousel.style.scrollBehavior = 'auto';
           carousel.scrollLeft = 0;
-          requestAnimationFrame(() => {
-            carousel.style.scrollBehavior = 'smooth';
-          });
+          currentIndex = 0;
+          carousel.style.scrollBehavior = 'smooth';
         }, 500);
-
-        currentIndex = 0;
-        return;
+      } else {
+        carousel.scrollTo({ left: currentIndex * width, behavior: 'smooth' });
       }
-
-      carousel.scrollTo({ left: target, behavior: 'smooth' });
     };
 
-    // Manual scroll reset
-    carousel.addEventListener('scroll', () => {
-      const width = slideWidth();
-      const resetPoint = REAL_SLIDES * width;
-
-      if (carousel.scrollLeft >= resetPoint) {
-        carousel.style.scrollBehavior = 'auto';
-        carousel.scrollLeft -= resetPoint;
-        currentIndex = 0;
-
-        requestAnimationFrame(() => {
+    // Manual scroll sync
+    carousel.addEventListener(
+      'scroll',
+      () => {
+        const width = getSlideWidth();
+        if (carousel.scrollLeft >= REAL_SLIDES * width) {
+          carousel.style.scrollBehavior = 'auto';
+          carousel.scrollLeft = 0;
+          currentIndex = 0;
           carousel.style.scrollBehavior = 'smooth';
-        });
-      }
-    });
+        }
+      },
+      { passive: true },
+    );
 
-    // Resize support
+    // Handle Window Resize
     window.addEventListener('resize', () => {
       carousel.style.scrollBehavior = 'auto';
-      carousel.scrollLeft = currentIndex * slideWidth();
-      requestAnimationFrame(() => {
-        carousel.style.scrollBehavior = 'smooth';
-      });
+      carousel.scrollLeft = currentIndex * getSlideWidth();
+      carousel.style.scrollBehavior = 'smooth';
     });
 
     setInterval(autoScroll, SLIDE_TIME);
   };
 
-  // ============================================================
-  // INITIALIZATION
-  // ============================================================
-  window.addEventListener('scroll', handleParallaxScroll);
-  handleParallaxScroll();
   setupCarousel();
+
+  // ==========================================
+  // 4. PRELOADER HIDER
+  // ==========================================
+  const hidePreloader = () => {
+    if (preloader) {
+      preloader.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => preloader.remove(), 1000);
+    }
+  };
+
+  // Hide preloader when everything is ready
+  if (document.readyState === 'complete') {
+    hidePreloader();
+  } else {
+    window.addEventListener('load', hidePreloader);
+  }
 });

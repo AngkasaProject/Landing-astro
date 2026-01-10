@@ -107,7 +107,8 @@ input[type='radio']:checked + label {
 
 .nav-link-animated {
   position: relative;
-  text-decoration: none;
+  display: inline-block;
+  padding: 4px 0;
 }
 
 .nav-link-animated::after {
@@ -115,17 +116,21 @@ input[type='radio']:checked + label {
   position: absolute;
   width: 100%;
   height: 2px;
-  bottom: -6px;
+  bottom: 0;
   left: 0;
-  background-color: oklch(76.8% 0.233 130.85);
+  background-color: #84cc16; /* Warna Lime-500 */
   transform: scaleX(0);
-  transform-origin: bottom left;
-  transition: transform 0.3s ease-out;
+  /* Animasi muncul dari tengah */
+  transition: transform 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 
 .nav-link-animated:hover::after {
   transform: scaleX(1);
-  transform-origin: bottom left;
+}
+
+/* Mencegah getaran teks saat hover */
+.nav-link-animated:hover {
+  text-shadow: 0 0 1px rgba(132, 204, 22, 0.2);
 }
 #wa-button.show {
   opacity: 1 !important;
@@ -140,33 +145,6 @@ input[type='radio']:checked + label {
   animation-delay: 0.3s;
 }
 
-/* Aurora */
-.aurora-bg {
-  background:
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.8), transparent 60%),
-    radial-gradient(circle at 80% 70%, rgba(240, 240, 255, 0.7), transparent 60%),
-    radial-gradient(circle at 50% 50%, rgba(230, 245, 255, 0.9), transparent 70%);
-  filter: blur(60px);
-  animation: auroraMove 10s ease-in-out infinite alternate;
-  width: 200%;
-  height: 200%;
-  position: absolute;
-  inset: -50%;
-  z-index: 1;
-}
-
-@keyframes auroraMove {
-  0% {
-    transform: translate(-10%, -10%) scale(1.1);
-  }
-  50% {
-    transform: translate(10%, -5%) scale(1.15);
-  }
-  100% {
-    transform: translate(-5%, 10%) scale(1.1);
-  }
-}
-
 header,
 #mobile-menu-sidebar,
 #desktop-nav,
@@ -174,10 +152,6 @@ header,
   overflow-x: hidden;
 }
 
-html,
-body {
-  overflow-x: hidden !important;
-}
 /* From Uiverse.io by abrahamcalsin */
 .dot-spinner {
   --uib-size: 2.8rem;
@@ -189,6 +163,12 @@ body {
   justify-content: flex-start;
   height: var(--uib-size);
   width: var(--uib-size);
+}
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .dot-spinner__dot {
@@ -281,4 +261,12 @@ body {
     transform: scale(1);
     opacity: 1;
   }
+}
+
+.logo-inverted {
+  filter: brightness(0) invert(1);
+}
+
+#header-logo:not(.logo-inverted) {
+  filter: none;
 }
