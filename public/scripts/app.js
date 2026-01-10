@@ -35,13 +35,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // B. Header Logo Invert Logic
-    if (headerLogo) {
-      if (scrollPos > 50) {
+    const isHomePage =
+      window.location.pathname === '/' || window.location.pathname === '/index.html';
+    const headerLogo = document.getElementById('header-logo');
+
+    const handleLogoScroll = () => {
+      if (!headerLogo) return;
+
+      // JIKA BUKAN HOMEPAGE: Logo selalu normal (hapus class invert)
+      if (!isHomePage) {
+        headerLogo.classList.remove('logo-inverted');
+        return;
+      }
+
+      // JIKA HOMEPAGE: Gunakan logika scroll
+      if (window.scrollY > 50) {
         headerLogo.classList.remove('logo-inverted');
       } else {
         headerLogo.classList.add('logo-inverted');
       }
-    }
+    };
+
+    window.addEventListener('scroll', handleLogoScroll, { passive: true });
+    handleLogoScroll();
 
     // C. WhatsApp Button Visibility
     if (hero && waBtn) {
