@@ -1,102 +1,148 @@
 ---
-import Layout from '../layouts/BaseLayout.astro'; 
+import Layout from '../layouts/BaseLayout.astro';
 
-const title = "Tentang Kami | AetherSub";
+const title = 'Tentang Kami | AetherSub';
 ---
+
 <Layout title={title}>
-    <main class="bg-gray-50 min-h-screen pt-20">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <main class="min-h-screen overflow-hidden bg-white pt-24">
+    <div
+      class="absolute top-0 left-0 -z-10 h-[500px] w-full bg-gradient-to-b from-lime-50/50 to-transparent"
+    >
+    </div>
 
-            <!-- HEADER -->
-            <header class="text-center mb-16" data-aos="fade-up">
-                <h1 class="text-lg font-extrabold text-gray-900 mb-4">
-                   We Are <span class="font-judul2 italic text-2xl text-lime-600">AetherSub</span>
-                </h1>
-                <p class="text-lg text-gray font-medium">
-                    Lebih dari Sekadar Pakaian Olahraga, Ini adalah Semangat Kami.
-                </p>
-            </header>
-            
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-
-                <!-- BAGIAN TEKS -->
-                <div class="space-y-10" data-aos="fade-right">
-                    
-                    <div>
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4 flex items-center">
-                            <i class="fa-solid fa-eye text-lime-600 mr-3"></i> Visi Kami
-                        </h2>
-                        <blockquote class="border-l-4 border-red-500 pl-4 text-gray-700 italic">
-                            "Menjadi produsen jersey olahraga yang dikenal karena kualitas, desain orisinal, dan dedikasi pada kepuasan pelanggan."
-                        </blockquote>
-                    </div>
-                    
-                    <div>
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4 flex items-center">
-                            <i class="fa-solid fa-rocket text-lime-600 mr-3"></i> Misi Kami
-                        </h2>
-                        <ul class="space-y-3 text-gray-700 list-disc list-inside">
-                            <li>Menyediakan material terbaik yang mendukung performa dan kenyamanan atlet/penggemar.</li>
-                            <li>Terus berinovasi dalam desain untuk menciptakan gaya yang unik dan berkarakter.</li>
-                            <li>Memberikan pengalaman kustomisasi yang mudah dan hasil yang presisi.</li>
-                            <li>Menjalin hubungan yang erat dan transparan dengan komunitas olahraga.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- GAMBAR -->
-                <div 
-                    class="rounded-xl shadow-2xl overflow-hidden transform hover:scale-[1.01] transition duration-300"
-                    data-aos="fade-left"
-                >
-                    <img 
-                        src="/asset/images/port1.png" 
-                        alt="Tim AetherSub sedang merancang jersey berkualitas tinggi"
-                        class="w-full h-96 object-cover object-top" 
-                        loading="lazy"
-                    />
-                </div>
-            </div>
-
-            <hr class="my-16 border-gray-300" />
-
-            <!-- SECTION NILAI-NILAI -->
-            <section class="text-center">
-                <h2 class="text-4xl font-extrabold text-gray-900 mb-10" data-aos="fade-up">
-                    Nilai-Nilai Inti yang Kami Junjung
-                </h2>
-
-                <div class="grid md:grid-cols-3 gap-8">
-
-                    <div 
-                        class="p-6 rounded-2xl shadow-2xl backdrop-blur-lg border border-opacity-30 border-white bg-white/10"
-                        data-aos="zoom-in" data-aos-delay="0"
-                    >
-                        <i class="fa-solid fa-medal text-4xl text-lime-600 mb-3"></i>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Kualitas Premium</h3>
-                        <p class="text-gray-600">Kami percaya setiap detail menentukan performa. Kami hanya menggunakan bahan terbaik yang tahan lama dan nyaman di segala kondisi.</p>
-                    </div>
-
-                    <div 
-                        class="p-6 rounded-2xl shadow-2xl backdrop-blur-lg border border-opacity-30 border-white bg-white/10"
-                        data-aos="zoom-in" data-aos-delay="150"
-                    >
-                        <i class="fa-solid fa-lightbulb text-4xl text-lime-600 mb-3"></i>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Orisinalitas Desain</h3>
-                        <p class="text-gray-700 leading-relaxed drop-shadow-lg">Tim kreatif kami berdedikasi menciptakan desain yang unik, mencerminkan identitas tim Anda, bukan sekadar meniru yang sudah ada.</p>
-                    </div>
-
-                    <div 
-                        class="p-6 rounded-2xl shadow-2xl backdrop-blur-lg border border-opacity-30 border-white bg-white/10"
-                        data-aos="zoom-in" data-aos-delay="300"
-                    >
-                        <i class="fa-solid fa-handshake-angle text-4xl text-lime-600 mb-4 drop-shadow-xl"></i>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Semangat Komunitas</h3>
-                        <p class="text-gray-700 leading-relaxed drop-shadow-lg">Kami hadir untuk mendukung mimpi setiap tim, dari yang kecil hingga besar. Kepuasan dan semangat Anda adalah prioritas kami.</p>
-                    </div>
-
-                </div>
-            </section>
+    <div class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+      <header class="relative mb-24 text-center" data-aos="fade-up">
+        <span class="mb-4 block text-sm font-bold tracking-[0.3em] text-lime-600 uppercase"
+          >Our Story</span
+        >
+        <h1 class="mb-6 text-5xl font-black tracking-tighter text-slate-900 md:text-7xl">
+          We Are <span
+            class="bg-gradient-to-r from-lime-600 to-emerald-600 bg-clip-text text-transparent"
+            >AetherSub</span
+          >
+        </h1>
+        <p class="mx-auto max-w-2xl text-xl leading-relaxed font-medium text-slate-500">
+          Identitas Tangguh untuk Performa Tanpa Batas. Build Your Legacy With AetherSub.
+        </p>
+        <div
+          class="absolute -top-10 left-1/2 -z-20 -translate-x-1/2 text-[12rem] font-black text-slate-100/50 select-none"
+        >
+          ABOUT
         </div>
-    </main>
+      </header>
+
+      <div class="mb-32 grid items-center gap-16 lg:grid-cols-12">
+        <div class="relative lg:col-span-7" data-aos="fade-right">
+          <div class="absolute -inset-4 -rotate-2 rounded-2xl bg-lime-100"></div>
+          <div class="group relative overflow-hidden rounded-2xl shadow-2xl">
+            <img
+              src="/asset/images/about.png"
+              alt="Proses Desain"
+              class="h-[500px] w-full object-cover transition duration-700 group-hover:scale-110"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+            <div class="absolute bottom-8 left-8">
+              <p class="text-2xl font-bold tracking-tight text-white">Standard Kualitas Global</p>
+              <p class="font-medium text-lime-400">Handcrafted in Pemalang</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-12 lg:col-span-5" data-aos="fade-left">
+          <section class="relative">
+            <div class="mb-6 flex items-center gap-4">
+              <span
+                class="flex h-12 w-12 items-center justify-center rounded-xl bg-lime-600 text-white shadow-lg shadow-lime-200"
+              >
+                <i class="fa-solid fa-eye text-xl"></i>
+              </span>
+              <h2 class="text-3xl font-black tracking-tight text-slate-900">Visi Kami</h2>
+            </div>
+            <p class="border-l-4 border-lime-600 pl-2 text-lg leading-relaxed text-slate-600">
+              "Menjadi apparel olahraga yang menggabungkan teknologi kain mutakhir dengan seni
+              desain orisinal untuk atlet."
+            </p>
+          </section>
+
+          <section>
+            <div class="mb-6 flex items-center gap-4">
+              <span
+                class="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-900 text-white shadow-lg shadow-slate-200"
+              >
+                <i class="fa-solid fa-rocket text-xl"></i>
+              </span>
+              <h2 class="text-3xl font-black tracking-tight text-slate-900">Misi Kami</h2>
+            </div>
+            <ul class="space-y-4">
+              {
+                [
+                  'Material Dry Fit untuk performa maksimal.',
+                  'Kustomisasi tanpa batas, presisi hingga detail terkecil.',
+                  'Ekosistem produksi transparan dan berkelanjutan.',
+                ].map((misi) => (
+                  <li class="group flex items-start gap-3 font-medium text-slate-600">
+                    <i class="fa-solid fa-check-circle mt-1 text-lime-600 transition-transform group-hover:scale-125" />
+                    <span>{misi}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      <section class="shadow-3xl relative overflow-hidden rounded-[3rem] bg-slate-900 px-8 py-20">
+        <div class="absolute top-0 right-0 -z-0 h-64 w-64 bg-lime-600/20 blur-[100px]"></div>
+        <div class="relative z-10 mb-16 text-center">
+          <h2 class="text-4xl font-black text-white" data-aos="fade-up">Core Values</h2>
+          <p class="mt-4 text-slate-400">Fondasi kami dalam melayani komunitas olahraga.</p>
+        </div>
+
+        <div class="relative z-10 grid gap-8 md:grid-cols-3">
+          {
+            [
+              {
+                icon: 'fa-medal',
+                title: 'Kualitas Premium',
+                desc: 'Hanya menggunakan grade kain terbaik untuk kenyamanan pengguna.',
+              },
+              {
+                icon: 'fa-lightbulb',
+                title: 'Orisinalitas',
+                desc: 'Setiap goresan desain lahir dari kreativitas kamu dan tim AetherSub.',
+              },
+              {
+                icon: 'fa-handshake-angle',
+                title: 'Dedikasi',
+                desc: 'Kami tidak hanya menjual jersey, kami membangun hubungan jangka panjang.',
+              },
+            ].map((val, index) => (
+              <div
+                class="group rounded-3xl border border-white/10 bg-white/5 p-10 backdrop-blur-md transition-all duration-500 hover:-translate-y-3 hover:bg-white/10"
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
+              >
+                <div class="mb-6 flex h-16 w-16 rotate-3 items-center justify-center rounded-2xl bg-gradient-to-br from-lime-500 to-lime-700 shadow-xl transition-transform group-hover:rotate-12">
+                  <i class={`fa-solid ${val.icon} text-3xl text-white`} />
+                </div>
+                <h3 class="mb-4 text-2xl font-bold tracking-tight text-white">{val.title}</h3>
+                <p class="leading-relaxed text-slate-400">{val.desc}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+  </main>
 </Layout>
+
+<style>
+  /* Font khusus jika kamu punya, jika tidak akan fallback ke sans-serif */
+  .font-black {
+    font-weight: 900;
+  }
+  .tracking-tighter {
+    letter-spacing: -0.05em;
+  }
+</style>

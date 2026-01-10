@@ -2,6 +2,7 @@
 // src/layouts/BaseLayout.astro
 import '../styles/global.css';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 
@@ -102,12 +103,18 @@ const currentYear = new Date().getFullYear();
   </head>
   <div
     id="preloader"
-    class="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-gray-900"
+    class="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-gray-200"
   >
-    <div class="spinner">
-      <div class="spinner1 bg-gray-900"></div>
+    <div class="dot-spinner">
+      <div class="dot-spinner__dot"></div>
+      <div class="dot-spinner__dot"></div>
+      <div class="dot-spinner__dot"></div>
+      <div class="dot-spinner__dot"></div>
+      <div class="dot-spinner__dot"></div>
+      <div class="dot-spinner__dot"></div>
+      <div class="dot-spinner__dot"></div>
+      <div class="dot-spinner__dot"></div>
     </div>
-    <p class="font-judul2 px-1 py-5 text-gray-500">Angkasa Project</p>
   </div>
 
   <body class="font-base bg-gray-100">
@@ -115,97 +122,7 @@ const currentYear = new Date().getFullYear();
 
     <slot />
 
-    <footer class="mt-0 border-t border-gray-700 bg-gray-900">
-      <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
-        <div class="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
-          <div class="col-span-2 pr-4 md:col-span-1">
-            <div class="mb-4">
-              <img
-                id="footer-logo"
-                src="/asset/images/logo-web.png"
-                alt="Logo AetherSub"
-                class="h-12"
-              />
-            </div>
-            <p class="mb-4 text-sm text-gray-400">Vendor Jersey Pilihan terbaik</p>
-            <div class="space-y-2 text-sm">
-              <p class="flex items-center text-gray-400">
-                <i class="fa-solid fa-phone mr-2 h-4 w-4 text-red-600"></i>
-                +62 851-7114-0818
-              </p>
-              <p class="flex items-center text-gray-400">
-                <i class="fa-solid fa-envelope mr-2 h-4 w-4 text-red-600"></i>
-                helpdesk@aethersub.store
-              </p>
-            </div>
-          </div>
-          <div>
-            <h4 class="mb-4 text-lg font-semibold text-white">Layanan Pelanggan</h4>
-            <ul class="space-y-2 text-sm">
-              <li>
-                <a href="/beli" class="text-gray-400 transition duration-150 hover:text-red-600"
-                  >Cara Belanja</a
-                >
-              </li>
-              <li>
-                <a href="/retur" class="text-gray-400 transition duration-150 hover:text-red-600"
-                  >Pengembalian Produk</a
-                >
-              </li>
-              <li>
-                <a href="/faq" class="text-gray-400 transition duration-150 hover:text-red-600"
-                  >Tanya Jawab (FAQ)</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="mb-4 text-lg font-semibold text-white">Informasi</h4>
-            <ul class="space-y-2 text-sm">
-              <li>
-                <a href="/about" class="text-gray-400 transition duration-150 hover:text-red-600"
-                  >Tentang Kami</a
-                >
-              </li>
-              <li>
-                <a href="/privasi" class="text-gray-400 transition duration-150 hover:text-red-600"
-                  >Kebijakan Privasi</a
-                >
-              </li>
-              <li>
-                <a href="/syarat" class="text-gray-400 transition duration-150 hover:text-red-600"
-                  >Syarat & Ketentuan</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="mb-4 text-lg font-semibold text-white">Ikuti Kami</h4>
-            <div class="mt-6 flex space-x-4">
-              <a
-                href="https://instagram.com/aethersub"
-                class="text-gray-400 transition duration-150 hover:text-red-600"
-                ><i class="fa-brands fa-instagram text-2xl"></i></a
-              >
-              <a href="#" class="text-gray-400 transition duration-150 hover:text-red-600"
-                ><i class="fa-brands fa-facebook-f text-2xl"></i></a
-              >
-              <a href="#" class="text-gray-400 transition duration-150 hover:text-red-600"
-                ><i class="fa-brands fa-twitter text-2xl"></i></a
-              >
-              <a href="#" class="text-gray-400 transition duration-150 hover:text-red-600"
-                ><i class="fa-brands fa-tiktok text-2xl"></i></a
-              >
-            </div>
-          </div>
-        </div>
-        <div class="mt-10 border-t border-gray-700 pt-6 text-center">
-          <p class="text-xs text-gray-500">
-            &copy; {currentYear} AetherSub | Angkasa Project.
-          </p>
-        </div>
-      </div>
-    </footer>
+    <Footer />
 
     <a
       id="wa-button"

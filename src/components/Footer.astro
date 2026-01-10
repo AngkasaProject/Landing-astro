@@ -1,0 +1,156 @@
+---
+// src/components/Footer.astro
+const currentYear = new Date().getFullYear();
+
+const navLinks = [
+  { name: 'CARA ORDER', href: '/beli' },
+  { name: 'PENGEMBALIAN', href: '/retur' },
+  { name: 'FAQ', href: '/faq' },
+  { name: 'TENTANG KAMI', href: '/about' },
+  { name: 'KEBIJAKAN PRIVASI', href: '/privasi' },
+];
+
+const socials = [
+  {
+    icon: 'fa-brands fa-instagram',
+    color: 'hover:bg-pink-600',
+    href: 'https://instagram.com/aethersub',
+  },
+  { icon: 'fa-brands fa-tiktok', color: 'hover:bg-black', href: '#' },
+  {
+    icon: 'fa-brands fa-whatsapp',
+    color: 'hover:bg-green-600',
+    href: 'https://wa.me/6285171140818',
+  },
+];
+---
+
+<footer class="mt-0 border-t border-slate-700 bg-slate-900 text-slate-300">
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
+    <div class="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
+      <div class="col-span-2 pr-4 md:col-span-1">
+        <div class="group mb-6 inline-block">
+          <img
+            id="footer-logo"
+            src="/asset/images/logo-web.png"
+            alt="Logo AetherSub"
+            class="h-12 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3"
+          />
+        </div>
+        <p class="mb-6 text-sm font-medium text-slate-400 italic">
+          Vendor Jersey pilihan dengan standar kualitas premium. Solusi desain eksklusif untuk
+          identitas tim pemenang.
+        </p>
+        <div class="space-y-3 text-sm">
+          <a
+            href="tel:+6285171140818"
+            class="group flex items-center transition-colors hover:text-white"
+          >
+            <i class="fa-solid fa-phone mr-3 text-lime-500 group-hover:animate-pulse"></i>
+            +62 851-7114-0818
+          </a>
+          <a
+            href="mailto:helpdesk@aethersub.store"
+            class="group flex items-center transition-colors hover:text-white"
+          >
+            <i class="fa-solid fa-envelope mr-3 text-lime-500 group-hover:animate-bounce"></i>
+            helpdesk@aethersub.store
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="mb-6 text-sm font-bold tracking-widest text-white uppercase">
+          Layanan Pelanggan
+        </h4>
+        <ul class="space-y-4 text-sm">
+          {
+            navLinks.slice(0, 3).map(
+              (
+                link, // Mengambil 3 link pertama
+              ) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="group relative flex items-center overflow-hidden transition-all duration-300 hover:text-lime-500"
+                  >
+                    <span class="absolute bottom-0 h-[1px] w-0 bg-lime-500 transition-all duration-300 group-hover:w-full" />
+                    <span class="transition-transform duration-300 group-hover:translate-x-2">
+                      {link.name}
+                    </span>
+                  </a>
+                </li>
+              ),
+            )
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="mb-6 text-sm font-bold tracking-widest text-white uppercase">Informasi</h4>
+        <ul class="space-y-4 text-sm">
+          {
+            navLinks.slice(3).map(
+              (
+                link, // Mengambil sisa link (Tentang Kami & Privasi)
+              ) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="group relative flex items-center overflow-hidden transition-all duration-300 hover:text-lime-500"
+                  >
+                    <span class="absolute bottom-0 h-[1px] w-0 bg-lime-500 transition-all duration-300 group-hover:w-full" />
+                    <span class="transition-transform duration-300 group-hover:translate-x-2">
+                      {link.name}
+                    </span>
+                  </a>
+                </li>
+              ),
+            )
+          }
+        </ul>
+      </div>
+
+      <div class="flex flex-col items-center lg:items-end">
+        <h4 class="mb-6 text-xs font-bold tracking-widest text-white uppercase">
+          Join Our Community
+        </h4>
+        <div class="flex gap-4">
+          {
+            socials.map((social) => (
+              <a
+                href={social.href}
+                class={`flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-800 text-xl text-white transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_20px_rgba(0,0,0,0.3)] ${social.color}`}
+              >
+                <i class={social.icon} />
+              </a>
+            ))
+          }
+        </div>
+        <div class="mt-8 flex items-center gap-2 rounded-full bg-slate-800/50 px-4 py-2 text-xs">
+          <span class="relative flex h-2 w-2">
+            <span
+              class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"
+            ></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+          </span>
+          Customer Service Online
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16 border-t border-slate-800 pt-8">
+      <div class="flex flex-col items-center justify-between gap-6 md:flex-row">
+        <p class="text-xs tracking-wide text-slate-500">
+          &copy; {currentYear}
+          <span class="font-bold text-slate-300">AETHERSUB</span>. Crafted by Angkasa Project.
+        </p>
+        <div class="flex gap-8 text-[10px] font-bold tracking-[0.2em] text-slate-600 uppercase">
+          <span class="cursor-default transition hover:text-lime-500">Performance</span>
+          <span class="cursor-default transition hover:text-lime-500">Authentic</span>
+          <span class="cursor-default transition hover:text-lime-500">Quality</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
