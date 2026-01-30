@@ -1,0 +1,101 @@
+---
+import '../../styles/global.css';
+---
+
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Admin | AetherSub</title>
+    <link rel="icon" type="image/x-icon" href="/asset/icon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/asset/apple-touch-icon.png" />
+  </head>
+  <body class="flex min-h-screen items-center justify-center bg-slate-950 px-4">
+    <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      <div
+        class="absolute -top-[10%] -left-[10%] h-[40%] w-[40%] rounded-full bg-lime-600/20 blur-[120px]"
+      >
+      </div>
+      <div
+        class="absolute -right-[10%] -bottom-[10%] h-[40%] w-[40%] rounded-full bg-lime-600/10 blur-[120px]"
+      >
+      </div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-md">
+      <div class="mb-8 text-center">
+        <img src="/asset/images/logo-web.png" alt="Logo" class="mx-auto mb-4 h-12" />
+        <h1 class="text-2xl font-bold text-white">Admin Panel</h1>
+        <p class="text-sm text-slate-400">Silakan masuk untuk mengelola produk jersey</p>
+      </div>
+
+      <div class="rounded-2xl border border-slate-800 bg-slate-900 p-8 shadow-2xl">
+        <form id="login-form" class="space-y-5">
+          <div>
+            <label class="mb-1.5 block text-sm font-medium text-slate-300">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="admin@aethersub.com"
+              class="w-full rounded-xl border border-slate-700 bg-slate-800 p-3 text-white transition-all outline-none placeholder:text-slate-500 focus:border-transparent focus:ring-2 focus:ring-lime-500"
+              required
+            />
+          </div>
+
+          <div>
+            <label class="mb-1.5 block text-sm font-medium text-slate-300">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="••••••••"
+              class="w-full rounded-xl border border-slate-700 bg-slate-800 p-3 text-white transition-all outline-none placeholder:text-slate-500 focus:border-transparent focus:ring-2 focus:ring-lime-500"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            id="login-btn"
+            class="w-full rounded-xl bg-lime-600 py-3 font-bold text-slate-950 shadow-lg shadow-lime-600/20 transition-all hover:bg-lime-500 active:scale-[0.98]"
+          >
+            Sign In
+          </button>
+        </form>
+      </div>
+
+      <p class="mt-8 text-center text-xs text-slate-500">
+        &copy; {new Date().getFullYear()} AetherSub Digital Store. All rights reserved.
+      </p>
+    </div>
+
+    <script>
+      import { supabase } from '../../lib/supabase';
+
+      const form = document.getElementById('login-form');
+      const btn = document.getElementById('login-btn') as HTMLButtonElement;
+
+      form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // UI Loading State
+        btn.innerText = 'Authenticating...';
+        btn.disabled = true;
+        btn.classList.add('opacity-70', 'cursor-not-allowed');
+
+        const email = (document.getElementById('email') as HTMLInputElement).value;
+        const password = (document.getElementById('password') as HTMLInputElement).value;
+
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+        if (error) {
+          alert('Akses Ditolak: ' + error.message);
+          btn.innerText = 'Sign In';
+          btn.disabled = false;
+          btn.classList.remove('opacity-70', 'cursor-not-allowed');
+        } else {
+          window.location.href = '/admin/upload';
+        }
+      });
+    </script>
+  </body>
+</html>

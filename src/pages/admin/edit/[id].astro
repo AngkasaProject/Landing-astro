@@ -1,0 +1,255 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { supabase } from '../../../lib/supabase';
+import '../../../styles/global.css';
+
+const { id } = Astro.params;
+
+if (!id || id === 'undefined') {
+  return Astro.redirect('/admin/dashboard');
+}
+
+const { data: product, error } = await supabase.from('products').select('*').eq('id', id).single();
+
+if (error || !product) {
+  return Astro.redirect('/admin/dashboard');
+}
+
+// Daftar kategori agar konsisten dengan halaman Tambah Produk
+const categories = ['Jersey Standar', 'Jersey Setelan', 'Jersey Vintage'];
+---
+
+<AdminLayout title={`Edit ${product.name}`}>
+  <main class="mx-auto mb-20 max-w-4xl p-4 md:p-6">
+    <div id="auth-check" class="hidden">
+      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
+        <div class="mb-8 flex items-center justify-between border-b pb-4">
+          <h1 class="text-xl font-bold text-slate-800 md:text-2xl">Edit Produk</h1>
+          <a
+            href="/admin/dashboard"
+            class="text-sm font-medium text-slate-500 transition hover:text-slate-800"
+          >
+            <i class="fa-solid fa-arrow-left"></i> Kembali
+          </a>
+        </div>
+
+        <form id="edit-form" class="space-y-6">
+          <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <div class="md:col-span-2">
+              <label class="mb-2 block text-xs font-bold text-slate-500 uppercase"
+                >Nama Jersey</label
+              >
+              <input
+                name="name"
+                type="text"
+                value={product.name}
+                required
+                class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 transition outline-none focus:bg-white focus:ring-2 focus:ring-lime-500"
+              />
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 md:col-span-2">
+              <div>
+                <label class="mb-2 block text-xs font-bold text-slate-500 uppercase"
+                  >Harga (Rp)</label
+                >
+                <input
+                  name="price"
+                  type="number"
+                  value={product.price}
+                  required
+                  class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:bg-white focus:ring-2 focus:ring-lime-500"
+                />
+              </div>
+              <div>
+                <label class="mb-2 block text-xs font-bold text-slate-500 uppercase"
+                  >Harga Coret</label
+                >
+                <input
+                  name="old_price"
+                  type="number"
+                  value={product.old_price}
+                  class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:bg-white focus:ring-2 focus:ring-lime-500"
+                />
+              </div>
+            </div>
+
+            <div class="md:col-span-2">
+              <label class="mb-2 block text-xs font-bold text-slate-500 uppercase">Kategori</label>
+              <select
+                name="category"
+                required
+                class="w-full cursor-pointer rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:bg-white focus:ring-2 focus:ring-lime-500"
+              >
+                <option value="" disabled>Pilih Kategori</option>
+                {
+                  categories.map((cat) => (
+                    <option value={cat} selected={product.category === cat}>
+                      {cat}
+                    </option>
+                  ))
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="mt-4 border-t pt-8">
+            <label class="mb-4 block text-xs font-bold tracking-widest text-slate-500 uppercase"
+              >Galeri Foto Produk</label
+            >
+            <div class="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5" id="current-gallery">
+              {
+                product.images &&
+                  product.images.map((img: any, index: number) => (
+                    <div class="group relative aspect-square" id={`container-${index}`}>
+                      <img
+                        src={img.thumb}
+                        class="h-full w-full rounded-xl border border-slate-100 object-cover shadow-sm"
+                      />
+                      <button
+                        type="button"
+                        class="btn-hapus-gambar absolute -top-1.5 -right-1.5 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-red-500 text-white shadow-lg transition hover:bg-red-700"
+                        data-index={index}
+                      >
+                        <i class="fa-solid fa-xmark text-sm" />
+                      </button>
+                    </div>
+                  ))
+              }
+            </div>
+
+            <div class="mt-4 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 p-5">
+              <label class="mb-2 block text-sm font-bold text-slate-600 uppercase"
+                >Tambah Foto Baru</label
+              >
+              <input
+                type="file"
+                id="image-input"
+                multiple
+                accept="image/*"
+                class="block w-full cursor-pointer text-sm text-slate-500 file:mr-4 file:rounded-full file:border-0 file:bg-slate-800 file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-slate-700"
+              />
+            </div>
+          </div>
+
+          <div class="pt-6">
+            <button
+              type="submit"
+              id="submit-btn"
+              class="flex w-full items-center justify-center gap-2 rounded-2xl bg-lime-600 py-4 font-bold text-white shadow-xl transition hover:bg-lime-700 active:scale-[0.98]"
+            >
+              <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ productId: id, initialImages: product.images }}>
+    window.productId = productId;
+    window.currentImages = initialImages || [];
+  </script>
+
+  <script>
+    import { supabase } from '../../../lib/supabase';
+    import Swal from 'sweetalert2';
+
+    // Auth Check
+    (async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session) window.location.href = '/admin/login';
+      else document.getElementById('auth-check')?.classList.remove('hidden');
+    })();
+
+    // Logika Hapus Gambar
+    document.addEventListener('click', async (e) => {
+      const btn = (e.target as HTMLElement).closest('.btn-hapus-gambar');
+      if (!btn) return;
+
+      const index = parseInt(btn.getAttribute('data-index') || '0');
+      const { isConfirmed } = await Swal.fire({
+        title: 'Hapus Gambar?',
+        text: 'Gambar ini akan dihapus dari daftar sementara.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444',
+        confirmButtonText: 'Ya, Hapus',
+      });
+
+      if (isConfirmed) {
+        const globalImgs = (window as any).currentImages;
+        const updated = globalImgs.filter((_: any, i: number) => i !== index);
+        (window as any).currentImages = updated;
+        document.getElementById(`container-${index}`)?.remove();
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Terhapus dari list',
+          timer: 800,
+          showConfirmButton: false,
+        });
+      }
+    });
+
+    // Submit Form
+    const form = document.getElementById('edit-form') as HTMLFormElement;
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';
+
+      const formData = new FormData(form);
+      const files = (document.getElementById('image-input') as HTMLInputElement).files;
+
+      try {
+        let finalImages = [...(window as any).currentImages];
+
+        // Upload jika ada foto baru
+        if (files && files.length > 0) {
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const fileName = `${Date.now()}-${i}.${file.name.split('.').pop()}`;
+            const { error: upErr } = await supabase.storage
+              .from('jersey-images')
+              .upload(`products/${fileName}`, file);
+            if (upErr) throw upErr;
+            const {
+              data: { publicUrl },
+            } = supabase.storage.from('jersey-images').getPublicUrl(`products/${fileName}`);
+            finalImages.push({ thumb: publicUrl, full: publicUrl });
+          }
+        }
+
+        const updateData = {
+          name: formData.get('name'),
+          price: parseInt(formData.get('price') as string),
+          old_price: formData.get('old_price')
+            ? parseInt(formData.get('old_price') as string)
+            : null,
+          category: formData.get('category'), // Simpan kategori baru
+          images: finalImages,
+          image_src: finalImages.length > 0 ? finalImages[0].full : null,
+        };
+
+        const { error } = await supabase
+          .from('products')
+          .update(updateData)
+          .eq('id', (window as any).productId);
+
+        if (error) throw error;
+
+        await Swal.fire({ icon: 'success', title: 'Sukses!', text: 'Produk berhasil diperbarui' });
+        window.location.href = '/admin/dashboard';
+      } catch (err: any) {
+        Swal.fire('Error', err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan';
+      }
+    });
+  </script>
+</AdminLayout>

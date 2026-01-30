@@ -151,85 +151,55 @@ window.changeMainImage = (thumbnailElement) => {
 /**
  * Membuka Modal Produk (Mendukung 4 argumen untuk dinamis)
  */
-window.openProductModal = (id, name, price, imagesJson) => {
+// Cari fungsi openProductModal dan ganti menjadi ini:
+window.openProductModal = (id, name, price, imagesJson, description) => {
   currentProductId = id;
   currentProductName = name;
   currentProductPrice = price;
-  // currentProductImageUrl akan diset di bawah
 
   const productModal = document.getElementById('product-detail-modal');
   const modalProductNameHeader = document.getElementById('modal-product-name-header');
   const modalProductName = document.getElementById('modal-product-name');
   const modalProductPrice = document.getElementById('modal-product-price');
+  const modalProductDescription = document.getElementById('modal-product-description'); // Baru
   const modalProductImageMain = document.getElementById('modal-product-image-main');
   const modalImageThumbnails = document.getElementById('modal-image-thumbnails');
 
-  // --- LOGIKA SET TEXT & PRICE ---
-  function formatRupiah(numberStr) {
-    let number = parseInt(numberStr, 10);
-    if (isNaN(number)) return 'Rp 0';
-    return 'Rp ' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  function formatRupiah(n) {
+    return 'Rp ' + parseInt(n).toLocaleString('id-ID');
   }
 
-  if (modalProductNameHeader) modalProductNameHeader.textContent = `Opsi Produk: ${name}`;
+  if (modalProductNameHeader) modalProductNameHeader.textContent = name;
   if (modalProductName) modalProductName.textContent = name;
   if (modalProductPrice) modalProductPrice.textContent = formatRupiah(price);
 
-  // --- LOGIKA DINAMIS GAMBAR ---
-  const defaultImageUrl = `https://picsum.photos/seed/item${id}/400/400`;
+  // Set Deskripsi secara dinamis
+  if (modalProductDescription) {
+    modalProductDescription.textContent = description || 'Jersey premium dengan kualitas terbaik.';
+  }
+
+  // --- Logika Gambar (Tetap seperti sebelumnya) ---
   let images = [];
-
   try {
-    if (imagesJson && imagesJson !== '[]') {
-      images = JSON.parse(imagesJson);
-    }
-  } catch (e) {
-    console.error('Gagal parse imagesJson:', e);
-  }
+    images = JSON.parse(imagesJson) || [];
+  } catch (e) {}
+  const mainImg = images.length > 0 ? images[0].full : `https://picsum.photos/seed/${id}/400/400`;
+  if (modalProductImageMain) modalProductImageMain.style.backgroundImage = `url('${mainImg}')`;
+  currentProductImageUrl = mainImg;
 
-  // 1. Set Main Image URL
-  const mainImageUrl = images.length > 0 ? images[0]?.full : defaultImageUrl;
-  if (modalProductImageMain) {
-    modalProductImageMain.style.backgroundImage = `url('${mainImageUrl}')`;
-  }
-
-  // SIMPAN GAMBAR UTAMA KE GLOBAL STATE
-  currentProductImageUrl = mainImageUrl; // <<-- MODIFIKASI: Simpan URL gambar utama/default
-
-  // 2. Set Thumbnails
+  // --- Render Thumbnails ---
   if (modalImageThumbnails) {
-    modalImageThumbnails.innerHTML = ''; // Kosongkan thumbnail
-
-    const finalImages =
-      images.length > 0 ? images : [{ thumb: defaultImageUrl, full: defaultImageUrl }];
-
-    finalImages.forEach((image, index) => {
-      const isFirst = index === 0;
-      const thumbnailHtml = `
-            <div class="h-16 w-16 md:h-20 md:w-20 rounded-lg overflow-hidden flex-shrink-0 cursor-pointer thumbnail-item transition border-2 ${
-              isFirst ? 'border-red-600 opacity-100' : 'border-transparent opacity-70'
-            }"
-                data-full-image="${image.full}"
-                onclick="window.changeMainImage(this)"
-                style="background-image: url('${
-                  image.thumb
-                }'); background-size: cover; background-position: center;">
-            </div>`;
-      modalImageThumbnails.insertAdjacentHTML('beforeend', thumbnailHtml);
-    });
+    modalImageThumbnails.innerHTML = images
+      .map(
+        (img, i) => `
+      <div class="h-16 w-16 rounded-lg overflow-hidden cursor-pointer thumbnail-item border-2 ${i === 0 ? 'border-lime-600' : 'border-transparent opacity-60'}"
+           onclick="window.changeMainImage(this)" data-full-image="${img.full}"
+           style="background-image: url('${img.thumb}'); background-size: cover;">
+      </div>
+    `,
+      )
+      .join('');
   }
-  // --- END LOGIKA DINAMIS GAMBAR ---
-
-  // Reset input fields
-  const customName = document.getElementById('custom-name');
-  const customNumber = document.getElementById('custom-number');
-  const quantityInput = document.getElementById('quantity-input');
-  const sizeL = document.getElementById('sizeL');
-
-  if (customName) customName.value = '';
-  if (customNumber) customNumber.value = '';
-  if (quantityInput) quantityInput.value = '1';
-  if (sizeL) sizeL.checked = true;
 
   if (productModal) {
     productModal.classList.remove('hidden');
@@ -367,10 +337,6 @@ const closeDesktopSearch = () => {
   }
 };
 
-// ===============================================
-// Main DOMContentLoaded Listener (FIXED ICON SCROLL SELECTOR)
-// ===============================================
-
 document.addEventListener('DOMContentLoaded', () => {
   // --- ELEMENT INIT ---
   const header = document.getElementById('main-header');
@@ -390,7 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const buyButtons = document.querySelectorAll(
     ".open-product-modal, button[onclick^='openProductModal']",
   );
-
   // Sidebar Category Elements
   const openCategoryBtn = document.getElementById('open-category-sidebar');
   const categorySidebarOverlay = document.getElementById('category-sidebar-overlay');
@@ -410,16 +375,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const headerLogo = document.getElementById('header-logo');
 
   // --- TANGKAP TOMBOL PRODUK & ATTACH LISTENER ---
+  // --- TANGKAP TOMBOL PRODUK & ATTACH LISTENER ---
   buyButtons.forEach((button) => {
     button.removeAttribute('onclick');
 
     button.addEventListener('click', (e) => {
-      const id = e.currentTarget.getAttribute('data-product-id');
-      const name = e.currentTarget.getAttribute('data-product-name');
-      const price = e.currentTarget.getAttribute('data-product-price');
-      const imagesJson = e.currentTarget.getAttribute('data-product-images');
+      // 1. Definisikan tombol yang sedang diklik
+      const btn = e.currentTarget;
 
-      window.openProductModal(id, name, price, imagesJson);
+      // 2. Ambil semua atribut data dari tombol tersebut
+      const id = btn.getAttribute('data-product-id');
+      const name = btn.getAttribute('data-product-name');
+      const price = btn.getAttribute('data-product-price');
+      const imagesJson = btn.getAttribute('data-product-images');
+
+      // 3. Ambil deskripsi dari database melalui atribut data (PENTING)
+      const description = btn.getAttribute('data-product-description');
+
+      // 4. Kirim ke fungsi modal (Pastikan description ada di urutan ke-5)
+      window.openProductModal(id, name, price, imagesJson, description);
     });
   });
 

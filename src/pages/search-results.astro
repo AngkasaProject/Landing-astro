@@ -1,57 +1,98 @@
 ---
 // src/pages/search-results.astro
+import Layout from '../layouts/BaseLayout.astro';
+import { supabase } from '../lib/supabase'; // Pastikan path ini benar sesuai lokasi file supabase.js Anda
 
-// 1. Dapatkan objek URL dari Astro
 const url = Astro.url;
-// 2. Dapatkan objek parameter pencarian (URLSearchParams)
-const params = url.searchParams;
+const query = url.searchParams.get('q')?.trim() || '';
 
-// 3. Ambil nilai dari parameter 'q'
-// Jika 'q' tidak ada atau nilainya null/undefined, rawQuery akan menjadi null.
-const rawQuery = params.get('q'); 
+let products = [];
+let errorMsg = null;
 
-// 4. Proses dan pastikan hasilnya string, atau null jika benar-benar kosong
-const query = rawQuery?.trim() || null; 
+if (query.length >= 3) {
+  // Melakukan pencarian di database (Case Insensitive)
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .ilike('name', `%${query}%`)
+    .order('id', { ascending: true });
 
-// --- DEBUGGING EKSTRA ---
-// Dapatkan seluruh string parameter untuk debugging visual
-const fullQueryString = url.search; // Contoh: ?q=queryku&page=1
+  if (error) {
+    errorMsg = error.message;
+  } else {
+    products = data;
+  }
+}
 
-// Asumsi Anda memiliki layout utama, ganti './MyLayout.astro' sesuai nama layout Anda
-import Layout from '../layouts/BaseLayout.astro'; 
+function formatRupiah(number) {
+  if (!number) return 'Rp 0';
+  return 'Rp ' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
 
-const title = query ? `Hasil Pencarian untuk "${query}"` : "Halaman Pencarian";
+const title = query ? `Hasil Pencarian: ${query}` : 'Pencarian Produk';
 ---
 
 <Layout title={title}>
-    <main class="bg-gray-500 min-h-screen pt-20">
-        <div class="max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-lg mt-10">
-            <h1 class="text-3xl font-extrabold text-gray-900 mb-6 border-b pb-3">
-                🔍 Hasil Pencarian
-            </h1>
-            
-            <p class="text-lg text-gray-700">
-                Anda mencari: 
-                <span class="font-semibold text-red-600">
-                    "{query ? query : 'Tidak ada kata kunci.'}"
-                </span>
-            </p>
+  <main class="min-h-screen bg-gray-50 pt-24 pb-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-10">
+        <h1 class="text-3xl font-extrabold text-gray-900">
+          {query ? `Hasil pencarian untuk "${query}"` : 'Masukkan kata kunci...'}
+        </h1>
+        <p class="mt-2 text-gray-600">
+          Ditemukan {products.length} produk yang cocok.
+        </p>
+      </div>
 
-            <div class="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-500 text-yellow-800">
-                <p class="font-medium mb-2">Status Debugging URL:</p>
-                
-                <p class="text-sm">
-                    URL Parameter Penuh: <code class="bg-yellow-100 p-1 rounded">{fullQueryString || 'Tidak Ada'}</code>
-                </p>
-                
-                <p class="text-sm mt-1">
-                    Nilai 'q' yang Ditemukan: <code class="bg-yellow-100 p-1 rounded">{query || 'NULL/Kosong'}</code>
-                </p>
+      {errorMsg && <div class="mb-6 rounded-lg bg-red-50 p-4 text-red-700">{errorMsg}</div>}
+
+      {
+        products.length > 0 ? (
+          <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+            {products.map((product) => (
+              <div class="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition hover:shadow-xl">
+                <div class="aspect-square overflow-hidden bg-gray-200">
+                  <img
+                    src={product.image_src}
+                    alt={product.name}
+                    class="h-full w-full object-cover transition duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-4">
+                  <h3 class="line-clamp-2 text-sm font-bold text-gray-900 md:text-base">
+                    {product.name}
+                  </h3>
+                  <p class="mt-2 text-lg font-black text-lime-600">{formatRupiah(product.price)}</p>
+
+                  <button
+                    class="open-product-modal mt-4 w-full rounded-lg bg-gray-900 py-2 text-sm font-bold text-white transition hover:bg-lime-600"
+                    data-product-id={product.id}
+                    data-product-name={product.name}
+                    data-product-price={product.price}
+                    data-product-images={JSON.stringify(product.images)}
+                    data-product-description={product.description}
+                  >
+                    Lihat Detail
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div class="flex flex-col items-center justify-center py-20 text-center">
+            <div class="mb-4 text-6xl text-gray-300">
+              <i class="fa-solid fa-box-open" />
             </div>
-            
-            <a href="/" class="mt-8 inline-block text-red-600 hover:text-red-700 font-medium">
-                &larr; Kembali ke Beranda
+            <h2 class="text-xl font-bold text-gray-900">Produk tidak ditemukan</h2>
+            <p class="mt-2 text-gray-500">
+              Coba gunakan kata kunci lain seperti "Jersey", "Timnas", atau "Custom".
+            </p>
+            <a href="/" class="mt-6 font-bold text-lime-600 hover:underline">
+              Kembali ke Beranda
             </a>
-        </div>
-    </main>
+          </div>
+        )
+      }
+    </div>
+  </main>
 </Layout>

@@ -1,0 +1,90 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { supabase } from '../../lib/supabase';
+
+// Ambil data produk terbaru dari Supabase
+const { data: products } = await supabase
+  .from('products')
+  .select('*')
+  .order('created_at', { ascending: false });
+---
+
+<AdminLayout title="Kelola Produk">
+  <main class="mx-auto max-w-6xl px-4">
+    <div class="mb-6 flex items-center justify-between">
+      <h1 class="text-2xl font-bold">Daftar Produk Jersey</h1>
+      <a href="/admin/upload" class="rounded-lg bg-lime-600 px-4 py-2 text-sm text-white"
+        >+ Tambah Jersey</a
+      >
+    </div>
+
+    <div class="overflow-hidden rounded-xl bg-white shadow">
+      <table class="w-full border-collapse text-left">
+        <thead class="border-b bg-slate-50">
+          <tr>
+            <th class="p-4 text-sm font-semibold">Produk</th>
+            <th class="p-4 text-sm font-semibold">Kategori</th>
+            <th class="p-4 text-sm font-semibold">Harga</th>
+            <th class="p-4 text-center text-sm font-semibold">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            products?.map((product) => (
+              <tr class="border-b transition hover:bg-slate-50" id={`row-${product.id}`}>
+                <td class="flex items-center gap-3 p-4">
+                  <img src={product.image_src} class="h-12 w-12 rounded object-cover shadow-sm" />
+                  <span class="font-medium text-slate-700">{product.name}</span>
+                </td>
+                <td class="p-4 text-sm text-slate-500">{product.category}</td>
+                <td class="p-4 text-sm font-bold">Rp {product.price.toLocaleString('id-ID')}</td>
+                <td class="p-4">
+                  <div class="flex justify-center gap-2">
+                    <a
+                      href={`/admin/edit/${product.id}`}
+                      class="rounded p-2 text-blue-600 hover:bg-blue-50"
+                    >
+                      <i class="fa-solid fa-pen-to-square" /> Edit
+                    </a>
+                    <button
+                      class="delete-btn rounded p-2 text-red-600 hover:bg-red-50"
+                      data-id={product.id}
+                      data-name={product.name}
+                    >
+                      <i class="fa-solid fa-trash" /> Hapus
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    import { supabase } from '../../lib/supabase';
+    import Swal from 'sweetalert2'; // Opsional: Untuk alert yang lebih cantik
+
+    document.querySelectorAll('.delete-btn').forEach((btn) => {
+      btn.addEventListener('click', async (e) => {
+        const id = btn.getAttribute('data-id');
+        const name = btn.getAttribute('data-name');
+
+        const confirm = window.confirm(`Hapus jersey "${name}"?`);
+
+        if (confirm) {
+          const { error } = await supabase.from('products').delete().eq('id', id);
+
+          if (error) {
+            alert('Gagal menghapus: ' + error.message);
+          } else {
+            document.getElementById(`row-${id}`)?.remove();
+            alert('Produk dihapus!');
+          }
+        }
+      });
+    });
+  </script>
+</AdminLayout>
